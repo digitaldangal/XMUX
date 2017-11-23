@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:xmux/HomePage.dart';
+import 'package:xmux/homepage.dart';
 
 void main() {
   runApp(
