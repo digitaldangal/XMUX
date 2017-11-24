@@ -26,11 +26,10 @@ class _EnginePageState extends State<EnginePage> {
                 child: new Image(
                     width: 150.0,
                     height: 150.0,
-                    image: new NetworkImage(
-                        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1512064231&di=e86e5ecc86ec5ec3934af372ba4a58e7&imgtype=jpg&er=1&src=http%3A%2F%2Fi-3.yxdown.com%2F2015%2F10%2F20%2F40b6faa9-8c95-46c7-88a9-fea0723516a5.png")
+                    image: new AssetImage('res/wolfram.png'),
                 ),
               ),
-              new Text("Search things by powerful wolfram engine."),
+              new Text("Search anything by powerful wolfram engine."),
               new Row(
                 children: <Widget>[
                   new Flexible(
@@ -66,6 +65,7 @@ class _EnginePageState extends State<EnginePage> {
       appBar: new AppBar(
         title: engineTitle,
         backgroundColor: enginePageColor,
+
       ),
       body: buildWolframPage(),
     );

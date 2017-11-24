@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:xmux/enginepage.dart';
+import 'package:xmux/messagepage.dart';
+
+var setter;
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
 
   @override
-  _HomePageState createState() => new _HomePageState();
+  HomePageState createState() => new HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
   @override
@@ -18,12 +21,7 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           new Offstage(
             offstage: _currentIndex != 0,
-            child: new TickerMode(
-              enabled: _currentIndex == 0,
-              child: new Scaffold(
-                body: new Text("1"),
-              ),
-            ),
+            child: new MessagePage(),
           ),
           new Offstage(
             offstage: _currentIndex != 1,
@@ -78,6 +76,7 @@ class _HomePageState extends State<HomePage> {
           setState(() {
             _currentIndex = index;
           });
+
         },
       ),
       drawer: new Drawer(),
