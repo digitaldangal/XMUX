@@ -79,7 +79,6 @@ class HomePageState extends State<HomePage> {
 
         },
       ),
-      drawer: new Drawer(),
     );
   }
 }

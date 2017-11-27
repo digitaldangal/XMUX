@@ -13,7 +13,7 @@ class EnginePage extends StatefulWidget {
 
 class _EnginePageState extends State<EnginePage> {
 
-  static TextEditingController _inputTextController = new TextEditingController();
+  final TextEditingController _inputTextController = new TextEditingController();
 
   Widget buildWolframPage() {
     return new Scaffold(
@@ -57,7 +57,6 @@ class _EnginePageState extends State<EnginePage> {
                                     _inputTextController.text);
                               },
                             ));
-                      _inputTextController.text = "";
                     },
                   ),
                 ],
