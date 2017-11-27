@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:xmux/engine/result.dart';
 
 Color enginePageColor = Colors.orange;
-var engineTitle = new Text("Wolfram Engine");
+String engineTitle = "Wolfram Engine";
 
 class EnginePage extends StatefulWidget {
   EnginePage({Key key}) :super(key: key);
@@ -24,9 +25,9 @@ class _EnginePageState extends State<EnginePage> {
             children: <Widget>[
               new Flexible(
                 child: new Image(
-                    width: 150.0,
-                    height: 150.0,
-                    image: new AssetImage('res/wolfram.png'),
+                  width: 150.0,
+                  height: 150.0,
+                  image: new AssetImage('res/wolfram.png'),
                 ),
               ),
               new Text("Search anything by powerful wolfram engine."),
@@ -46,8 +47,17 @@ class _EnginePageState extends State<EnginePage> {
                   new IconButton(
                     icon: new Icon(Icons.send),
                     onPressed: () {
-                      if (_inputTextController.text == "")
+                      if (_inputTextController.text.isEmpty)
                         Navigator.of(context).pushNamed("/engine/constructor");
+                      else
+                        Navigator.of(context).push(
+                            new MaterialPageRoute<Null>(
+                              builder: (BuildContext context) {
+                                return new WolframResult(
+                                    _inputTextController.text);
+                              },
+                            ));
+                      _inputTextController.text = "";
                     },
                   ),
                 ],
@@ -63,7 +73,7 @@ class _EnginePageState extends State<EnginePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: engineTitle,
+        title: new Text(engineTitle),
         backgroundColor: enginePageColor,
 
       ),

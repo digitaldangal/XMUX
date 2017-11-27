@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xmux/enginepage.dart';
+import 'package:xmux/engine/result.dart';
 
 class InputConstructor extends StatefulWidget {
   InputConstructor({Key key}) :super(key: key);
@@ -13,7 +14,7 @@ class _InputConstructorState extends State<InputConstructor> {
   final TextEditingController _inputTextController = new TextEditingController();
 
   @override
-  Widget build(BuildContext) {
+  Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
         backgroundColor: enginePageColor,
@@ -40,18 +41,47 @@ class _InputConstructorState extends State<InputConstructor> {
                 new IconButton(
                   icon: new Icon(Icons.send),
                   onPressed: () {
-
+                    Navigator.of(context).push(
+                        new MaterialPageRoute<Null>(
+                          builder: (BuildContext context) {
+                            return new WolframResult(_inputTextController.text);
+                          },
+                        ));
                   },
                 ),
               ],
             ),
           ),
           new Row(children: <Widget>[
-            new IconButton(icon: new Icon(Icons.add), onPressed: () {_inputTextController.text += "+";}),
-            new IconButton(icon: new Icon(Icons.close), onPressed: () {_inputTextController.text += "*";})
+            new IconButton(
+                icon: new Text("+", style: new TextStyle(fontSize: 30.0),),
+                onPressed: () {
+                  _inputTextController.text += "+";
+                }),
+            new IconButton(
+                icon: new Text("-", style: new TextStyle(fontSize: 30.0),),
+                onPressed: () {
+                  _inputTextController.text += "-";
+                }),
+            new IconButton(icon: new Icon(Icons.close), onPressed: () {
+              _inputTextController.text += "*";
+            }),
+            new IconButton(
+                icon: new Text("/", style: new TextStyle(fontSize: 20.0),),
+                onPressed: () {
+                  _inputTextController.text += "/";
+                }),
+            new IconButton(
+                icon: new Text("[", style: new TextStyle(fontSize: 20.0),),
+                onPressed: () {
+                  _inputTextController.text += "[";
+                }),
+            new IconButton(
+                icon: new Text("]", style: new TextStyle(fontSize: 20.0),),
+                onPressed: () {
+                  _inputTextController.text += "]";
+                }),
           ],),
-
-          new Text("\n\n\n\n\n\n\n\n\naaa")
         ],
       ),
     );

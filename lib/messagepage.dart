@@ -84,7 +84,7 @@ class _MessagePageState extends State<MessagePage> {
   }
 }
 
-const String _name = "bdbai";
+const String _name = "XMU";
 
 class Message extends StatelessWidget {
   Message({this.text});
