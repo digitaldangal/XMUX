@@ -57,29 +57,42 @@ class _InputConstructorState extends State<InputConstructor> {
                 icon: new Text("+", style: new TextStyle(fontSize: 30.0),),
                 onPressed: () {
                   _inputTextController.text += "+";
+                  _inputTextController.selection = new TextSelection.collapsed(
+                      offset: _inputTextController.text.length);
+                  print(_inputTextController.selection.baseOffset);
                 }),
             new IconButton(
                 icon: new Text("-", style: new TextStyle(fontSize: 30.0),),
                 onPressed: () {
                   _inputTextController.text += "-";
+                  _inputTextController.selection = new TextSelection.collapsed(
+                      offset: _inputTextController.text.length);
                 }),
             new IconButton(icon: new Icon(Icons.close), onPressed: () {
               _inputTextController.text += "*";
+              _inputTextController.selection = new TextSelection.collapsed(
+                  offset: _inputTextController.text.length);
             }),
             new IconButton(
                 icon: new Text("/", style: new TextStyle(fontSize: 20.0),),
                 onPressed: () {
                   _inputTextController.text += "/";
+                  _inputTextController.selection = new TextSelection.collapsed(
+                      offset: _inputTextController.text.length);
                 }),
             new IconButton(
                 icon: new Text("[", style: new TextStyle(fontSize: 20.0),),
                 onPressed: () {
                   _inputTextController.text += "[";
+                  _inputTextController.selection = new TextSelection.collapsed(
+                      offset: _inputTextController.text.length);
                 }),
             new IconButton(
                 icon: new Text("]", style: new TextStyle(fontSize: 20.0),),
                 onPressed: () {
                   _inputTextController.text += "]";
+                  _inputTextController.selection = new TextSelection.collapsed(
+                      offset: _inputTextController.text.length);
                 }),
           ],),
         ],
