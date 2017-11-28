@@ -13,6 +13,28 @@ class _InputConstructorState extends State<InputConstructor> {
 
   final TextEditingController _inputTextController = new TextEditingController();
 
+  Widget getInputButton(String inputButton) {
+    return new IconButton(
+        icon: new Text(inputButton, style: new TextStyle(fontSize: 25.0),),
+        onPressed: () {
+          if (_inputTextController.text.isNotEmpty) {
+            var baseOffset = _inputTextController.selection.baseOffset;
+            _inputTextController.text = _inputTextController.text.substring(
+                0, _inputTextController.selection.baseOffset) + inputButton +
+                _inputTextController.text.substring(
+                    _inputTextController.selection.baseOffset,
+                    _inputTextController.text.length);
+            _inputTextController.selection = new TextSelection.collapsed(
+                offset: baseOffset + 1);
+          }
+          else{
+            _inputTextController.text += inputButton;
+            _inputTextController.selection = new TextSelection.collapsed(
+                offset: 1);
+          }
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -53,47 +75,12 @@ class _InputConstructorState extends State<InputConstructor> {
             ),
           ),
           new Row(children: <Widget>[
-            new IconButton(
-                icon: new Text("+", style: new TextStyle(fontSize: 30.0),),
-                onPressed: () {
-                  _inputTextController.text += "+";
-                  _inputTextController.selection = new TextSelection.collapsed(
-                      offset: _inputTextController.text.length);
-                  print(_inputTextController.selection.baseOffset);
-                }),
-            new IconButton(
-                icon: new Text("-", style: new TextStyle(fontSize: 30.0),),
-                onPressed: () {
-                  _inputTextController.text += "-";
-                  _inputTextController.selection = new TextSelection.collapsed(
-                      offset: _inputTextController.text.length);
-                }),
-            new IconButton(icon: new Icon(Icons.close), onPressed: () {
-              _inputTextController.text += "*";
-              _inputTextController.selection = new TextSelection.collapsed(
-                  offset: _inputTextController.text.length);
-            }),
-            new IconButton(
-                icon: new Text("/", style: new TextStyle(fontSize: 20.0),),
-                onPressed: () {
-                  _inputTextController.text += "/";
-                  _inputTextController.selection = new TextSelection.collapsed(
-                      offset: _inputTextController.text.length);
-                }),
-            new IconButton(
-                icon: new Text("[", style: new TextStyle(fontSize: 20.0),),
-                onPressed: () {
-                  _inputTextController.text += "[";
-                  _inputTextController.selection = new TextSelection.collapsed(
-                      offset: _inputTextController.text.length);
-                }),
-            new IconButton(
-                icon: new Text("]", style: new TextStyle(fontSize: 20.0),),
-                onPressed: () {
-                  _inputTextController.text += "]";
-                  _inputTextController.selection = new TextSelection.collapsed(
-                      offset: _inputTextController.text.length);
-                }),
+            getInputButton("+"),
+            getInputButton("-"),
+            getInputButton("*"),
+            getInputButton("/"),
+            getInputButton("["),
+            getInputButton("]"),
           ],),
         ],
       ),

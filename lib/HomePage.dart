@@ -65,8 +65,8 @@ class HomePageState extends State<HomePage> {
             backgroundColor: Colors.lightBlue,
           ),
           new BottomNavigationBarItem(
-            title: new Text('Moodle'),
-            icon: new Icon(Icons.school),
+            title: new Text('Me'),
+            icon: new Icon(Icons.person),
             backgroundColor: Colors.lightBlue,
           ),
         ],
