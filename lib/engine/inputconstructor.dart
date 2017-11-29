@@ -81,6 +81,7 @@ class _InputConstructorState extends State<InputConstructor> {
             getInputButton("/"),
             getInputButton("["),
             getInputButton("]"),
+            getInputButton("^"),
           ],),
         ],
       ),
