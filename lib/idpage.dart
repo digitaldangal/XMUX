@@ -1,4 +1,10 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+
 
 class IDPage extends StatefulWidget {
   IDPage({Key key}) : super(key: key);
@@ -12,6 +18,37 @@ class _IDPageState extends State<IDPage> {
   final TextEditingController _usernameController = new TextEditingController();
   final TextEditingController _idPasswordController = new TextEditingController();
   final TextEditingController _epaymentPasswordController = new TextEditingController();
+
+  Future<bool> _authCampusID() async {
+    var response = await http.post("https://xmux.azurewebsites.net/ac",
+        body: {
+          "id": _usernameController.text,
+          "pass": _idPasswordController.text
+        });
+    var resJson = JSON.decode(response.body);
+    return (resJson["periods"] as List<String>).isNotEmpty;
+  }
+
+  Future<bool> _authEPayment(bool idauth) async {
+    if (!idauth)
+      return false;
+    var response = await http.post("https://xmux.azurewebsites.net/bill",
+        body: {
+          "id": _usernameController.text,
+          "pass": _epaymentPasswordController.text
+        });
+    var resJson = JSON.decode(response.body);
+    return (resJson as List<String>).isNotEmpty;
+  }
+
+  Future<File> _getFile() async {
+    String dir = (await getApplicationDocumentsDirectory()).path;
+    return new File('$dir/login.dat');
+  }
+
+  Future<Null> _saveLoginInfo(String info) async {
+    await (await _getFile()).writeAsString(info);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,9 +103,21 @@ class _IDPageState extends State<IDPage> {
                         ))),
               ),
               onPressed: () {
-                print('Sign In');
-                Scaffold.of(context).showSnackBar(
-                    new SnackBar(content: new Text("Success!")));
+                _authCampusID().then(_authEPayment).then((bool auth){
+                  if (auth){
+                    var infoMap = {
+                      "id":_usernameController.text,
+                      "campus":_idPasswordController.text,
+                      "epayment":_epaymentPasswordController.text,
+                    };
+                    _saveLoginInfo(JSON.encode(infoMap));
+                    Scaffold.of(context).showSnackBar(
+                        new SnackBar(content: new Text("Success!")));
+                  }
+                  else
+                    Scaffold.of(context).showSnackBar(
+                        new SnackBar(content: new Text("Failed!")));
+                });
               },
             ),
           ],
