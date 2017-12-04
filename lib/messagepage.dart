@@ -1,4 +1,7 @@
+import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class MessagePage extends StatefulWidget {
   MessagePage({Key key}) :super(key: key);
@@ -11,15 +14,31 @@ class _MessagePageState extends State<MessagePage> {
   final TextEditingController _textController = new TextEditingController();
   final List<Message> _messages = <Message>[];
 
+  Future<String> _getReply(String text) async {
+    var response = await http.post(
+        "https://xmux.azurewebsites.net/chat", body: {"msg": text});
+    var resJson = JSON.decode(response.body);
+    Message message = new Message(
+      text: resJson["reply"],
+      name: "Bdbai",
+    );
+    setState(() {
+      _messages.insert(0, message);
+    });
+    return response.body;
+  }
+
   void _handleSubmitted(String text) {
     if (text.isNotEmpty) {
       _textController.clear();
       Message message = new Message(
         text: text,
+        name: "Me",
       );
       setState(() {
         _messages.insert(0, message);
       });
+      _getReply(text);
     }
   }
 
@@ -55,7 +74,6 @@ class _MessagePageState extends State<MessagePage> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -87,12 +105,11 @@ class _MessagePageState extends State<MessagePage> {
   }
 }
 
-const String _name = "XMU";
-
 class Message extends StatelessWidget {
-  Message({this.text});
+  Message({this.name, this.text});
 
   final String text;
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -103,12 +120,12 @@ class Message extends StatelessWidget {
             children: <Widget>[
               new Container(
                 margin: const EdgeInsets.only(right: 16.0),
-                child: new CircleAvatar(child: new Text(_name[0])),
+                child: new CircleAvatar(child: new Text(name[0])),
               ),
               new Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    new Text(_name, style: Theme
+                    new Text(name, style: Theme
                         .of(context)
                         .textTheme
                         .subhead),

@@ -65,7 +65,7 @@ class _CalendarPageState extends State<CalendarPage> {
           itemCount: data == null ? 0 : data["classes"].length,
           itemBuilder: (_, int index) {
             return new Card(
-                child: new Text(data["classes"][index]["class"] +"\n"+
+                child: new Text(data["classes"][index]["class"] + "\n" +
                     data["weekdays"][data["classes"][index]["day"]] +
                     (data["periods"][data["classes"][index]["time"][0]] as String)
                         .substring(0, 7) +
