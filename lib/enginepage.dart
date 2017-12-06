@@ -35,7 +35,7 @@ class _EnginePageState extends State<EnginePage> {
                 children: <Widget>[
                   new Flexible(
                       child: new TextField(
-                        autofocus: true,
+                        autofocus: false,
                         controller: _inputTextController,
                         onSubmitted: null,
                         decoration: new InputDecoration.collapsed(
