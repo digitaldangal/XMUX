@@ -1,121 +1,25 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class MessagePage extends StatefulWidget {
-  MessagePage({Key key}) :super(key: key);
-
-  @override
-  _MessagePageState createState() => new _MessagePageState();
-}
-
-class _MessagePageState extends State<MessagePage> {
-  final TextEditingController _textController = new TextEditingController();
-  final List<Message> _messages = <Message>[];
-
-  Future<String> _getReply(String text) async {
-    var response = await http.post(
-        "https://xmux.azurewebsites.net/chat", body: {"msg": text});
-    var resJson = JSON.decode(response.body);
-    Message message = new Message(
-      text: resJson["reply"],
-      name: "Bdbai",
-    );
-    setState(() {
-      _messages.insert(0, message);
-    });
-    return response.body;
-  }
-
-  void _handleSubmitted(String text) {
-    if (text.isNotEmpty) {
-      _textController.clear();
-      Message message = new Message(
-        text: text,
-        name: "Me",
-      );
-      setState(() {
-        _messages.insert(0, message);
-      });
-      _getReply(text);
-    }
-  }
-
-
-  Widget _buildTextComposer() {
-    return new IconTheme(
-        data: new IconThemeData(color: Theme
-            .of(context)
-            .accentColor),
-        child: new Container(
-            margin: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: new Row(
-                children: <Widget>[
-                  new Flexible(
-                      child: new TextField(
-                        autofocus: false,
-                        controller: _textController,
-                        onSubmitted: _handleSubmitted,
-                        decoration: new InputDecoration.collapsed(
-                            hintText: "Send Messages"),
-                      )
-                  ),
-                  new Container(
-                    margin: new EdgeInsets.symmetric(horizontal: 4.0),
-                    child: new IconButton(
-                        icon: new Icon(Icons.send),
-                        onPressed: () => _handleSubmitted(_textController.text)
-                    ),
-                  )
-                ]
-            )
-        )
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: new AppBar(
-          title: new Text("Messages"),
-        ),
-        body: new Column(
-            children: <Widget>[
-              new Flexible(
-                  child: new ListView.builder(
-                    padding: new EdgeInsets.all(8.0),
-                    reverse: true,
-                    itemBuilder: (_, int index) => _messages[index],
-                    itemCount: _messages.length,
-                  )
-              ),
-              new Divider(height: 1.0),
-              new Container(
-                decoration: new BoxDecoration(
-                  color: Theme
-                      .of(context)
-                      .cardColor,
-                ),
-                child: _buildTextComposer(),
-              )
-            ]
-        )
-    );
-  }
-}
-
-class Message extends StatelessWidget {
-  Message({this.name, this.text});
-
-  final String text;
+class ChatMessage extends StatelessWidget {
+  ChatMessage({this.text, this.animationController, this.name});
   final String name;
-
+  final String text;
+  final AnimationController animationController;
   @override
   Widget build(BuildContext context) {
-    return new Container(
-        margin: const EdgeInsets.symmetric(vertical: 10.0),
-        child: new Row(
+    return new SizeTransition(
+        sizeFactor: new CurvedAnimation(
+            parent: animationController,
+            curve: Curves.easeOut
+        ),
+        axisAlignment: 0.0,
+        child: new Container(
+          margin: const EdgeInsets.symmetric(vertical: 10.0),
+          child: new Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               new Container(
@@ -123,20 +27,127 @@ class Message extends StatelessWidget {
                 child: new CircleAvatar(child: new Text(name[0])),
               ),
               new Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    new Text(name, style: Theme
-                        .of(context)
-                        .textTheme
-                        .subhead),
-                    new Container(
-                      margin: const EdgeInsets.only(top: 5.0),
-                      child: new Text(text),
-                    )
-                  ]
-              )
-            ]
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  new Text(name, style: Theme.of(context).textTheme.subhead),
+                  new Container(
+                    margin: const EdgeInsets.only(top: 5.0),
+                    child: new Text(text),
+                  ),
+                ],
+              ),
+            ],
+          ),
         )
+    );
+  }
+}
+
+class ChatScreen extends StatefulWidget {
+  @override
+  State createState() => new ChatScreenState();
+}
+
+class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
+  final List<ChatMessage> _messages = <ChatMessage>[];
+  final TextEditingController _textController = new TextEditingController();
+  bool _isComposing = false;
+
+  void _handleSubmitted(String text) {
+    _textController.clear();
+    setState(() {
+      _isComposing = false;
+    });
+    ChatMessage message = new ChatMessage(
+      text: text,
+      animationController: new AnimationController(
+        duration: new Duration(milliseconds: 700),
+        vsync: this,
+      ),
+      name: "Me",
+    );
+    setState(() {
+      _messages.insert(0, message);
+    });
+    message.animationController.forward();
+  }
+
+  void dispose() {
+    for (ChatMessage message in _messages)
+      message.animationController.dispose();
+    super.dispose();
+  }
+
+  Widget _buildTextComposer() {
+    return new IconTheme(
+      data: new IconThemeData(color: Theme.of(context).accentColor),
+      child: new Container(
+          margin: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: new Row(children: <Widget>[
+            new Flexible(
+              child: new TextField(
+                controller: _textController,
+                onChanged: (String text) {
+                  setState(() {
+                    _isComposing = text.length > 0;
+                  });
+                },
+                onSubmitted: _handleSubmitted,
+                decoration:
+                new InputDecoration.collapsed(hintText: "Send a message"),
+              ),
+            ),
+            new Container(
+                margin: new EdgeInsets.symmetric(horizontal: 4.0),
+                child: Theme.of(context).platform == TargetPlatform.iOS
+                    ? new CupertinoButton(
+                  child: new Text("Send"),
+                  onPressed: _isComposing
+                      ? () => _handleSubmitted(_textController.text)
+                      : null,
+                )
+                    : new IconButton(
+                  icon: new Icon(Icons.send),
+                  onPressed: _isComposing
+                      ? () => _handleSubmitted(_textController.text)
+                      : null,
+                )),
+          ]),
+          decoration: Theme.of(context).platform == TargetPlatform.iOS
+              ? new BoxDecoration(
+              border:
+              new Border(top: new BorderSide(color: Colors.grey[200])))
+              : null),
+    );
+  }
+
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+          title: new Text("Friendlychat"),
+          elevation:
+          Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0
+      ),
+      body: new Container(
+          child: new Column(
+              children: <Widget>[
+                new Flexible(
+                    child: new ListView.builder(
+                      padding: new EdgeInsets.all(8.0),
+                      reverse: true,
+                      itemBuilder: (_, int index) => _messages[index],
+                      itemCount: _messages.length,
+                    )
+                ),
+                new Divider(height: 1.0),
+                new Container(
+                  decoration: new BoxDecoration(
+                      color: Theme.of(context).cardColor),
+                  child: _buildTextComposer(),
+                ),
+              ]
+          ),
+          decoration: Theme.of(context).platform == TargetPlatform.iOS ? new BoxDecoration(border: new Border(top: new BorderSide(color: Colors.grey[200]))) : null),//new
     );
   }
 }
