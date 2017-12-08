@@ -6,9 +6,11 @@ import 'package:http/http.dart' as http;
 
 class ChatMessage extends StatelessWidget {
   ChatMessage({this.text, this.animationController, this.name});
+
   final String name;
   final String text;
   final AnimationController animationController;
+
   @override
   Widget build(BuildContext context) {
     return new SizeTransition(
@@ -29,10 +31,15 @@ class ChatMessage extends StatelessWidget {
               new Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  new Text(name, style: Theme.of(context).textTheme.subhead),
+                  new Text(name, style: Theme
+                      .of(context)
+                      .textTheme
+                      .subhead),
                   new Container(
                     margin: const EdgeInsets.only(top: 5.0),
-                    child: new Text(text),
+                    child: new Container(
+                      width: MediaQuery.of(context).size.width*0.80,
+                        child: new Text(text),),
                   ),
                 ],
               ),
@@ -80,7 +87,9 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 
   Widget _buildTextComposer() {
     return new IconTheme(
-      data: new IconThemeData(color: Theme.of(context).accentColor),
+      data: new IconThemeData(color: Theme
+          .of(context)
+          .accentColor),
       child: new Container(
           margin: const EdgeInsets.symmetric(horizontal: 8.0),
           child: new Row(children: <Widget>[
@@ -99,7 +108,9 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
             ),
             new Container(
                 margin: new EdgeInsets.symmetric(horizontal: 4.0),
-                child: Theme.of(context).platform == TargetPlatform.iOS
+                child: Theme
+                    .of(context)
+                    .platform == TargetPlatform.iOS
                     ? new CupertinoButton(
                   child: new Text("Send"),
                   onPressed: _isComposing
@@ -113,7 +124,9 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
                       : null,
                 )),
           ]),
-          decoration: Theme.of(context).platform == TargetPlatform.iOS
+          decoration: Theme
+              .of(context)
+              .platform == TargetPlatform.iOS
               ? new BoxDecoration(
               border:
               new Border(top: new BorderSide(color: Colors.grey[200])))
@@ -124,9 +137,11 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-          title: new Text("Friendlychat"),
+          title: new Text("Messages"),
           elevation:
-          Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0
+          Theme
+              .of(context)
+              .platform == TargetPlatform.iOS ? 0.0 : 4.0
       ),
       body: new Container(
           child: new Column(
@@ -142,12 +157,19 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
                 new Divider(height: 1.0),
                 new Container(
                   decoration: new BoxDecoration(
-                      color: Theme.of(context).cardColor),
+                      color: Theme
+                          .of(context)
+                          .cardColor),
                   child: _buildTextComposer(),
                 ),
               ]
           ),
-          decoration: Theme.of(context).platform == TargetPlatform.iOS ? new BoxDecoration(border: new Border(top: new BorderSide(color: Colors.grey[200]))) : null),//new
+          decoration: Theme
+              .of(context)
+              .platform == TargetPlatform.iOS
+              ? new BoxDecoration(
+              border: new Border(top: new BorderSide(color: Colors.grey[200])))
+              : null), //new
     );
   }
 }
