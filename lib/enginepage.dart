@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xmux/engine/result.dart';
+import 'package:xmux/engine/wolframresult.dart';
 
 Color enginePageColor = Colors.orange;
 String engineTitle = "Wolfram Engine";

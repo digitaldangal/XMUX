@@ -3,19 +3,10 @@ import 'package:xmux/enginepage.dart';
 
 String wolframAppID = "";
 
-class WolframResult extends StatefulWidget {
+class WolframResult extends StatelessWidget {
   final String inputString;
 
-  WolframResult(this.inputString, {Key key}) :super(key: key);
-
-  @override
-  _WolframResultState createState() => new _WolframResultState(inputString);
-}
-
-class _WolframResultState extends State<WolframResult> {
-  final String inputString;
-
-  _WolframResultState(this.inputString);
+  WolframResult(this.inputString);
 
   @override
   Widget build(BuildContext context) {

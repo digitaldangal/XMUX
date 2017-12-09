@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class ChatMessage extends StatelessWidget {
-  ChatMessage({this.text, this.animationController, this.name});
+class Message extends StatelessWidget {
+  Message({this.text, this.animationController, this.name});
 
   final String name;
   final String text;
@@ -50,13 +50,13 @@ class ChatMessage extends StatelessWidget {
   }
 }
 
-class ChatScreen extends StatefulWidget {
+class MessageScreen extends StatefulWidget {
   @override
-  State createState() => new ChatScreenState();
+  State createState() => new _MessageScreenState();
 }
 
-class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
-  final List<ChatMessage> _messages = <ChatMessage>[];
+class _MessageScreenState extends State<MessageScreen> with TickerProviderStateMixin {
+  final List<Message> _messages = <Message>[];
   final TextEditingController _textController = new TextEditingController();
   bool _isComposing = false;
 
@@ -65,7 +65,7 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
     setState(() {
       _isComposing = false;
     });
-    ChatMessage message = new ChatMessage(
+    Message message = new Message(
       text: text,
       animationController: new AnimationController(
         duration: new Duration(milliseconds: 700),
@@ -80,7 +80,7 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   }
 
   void dispose() {
-    for (ChatMessage message in _messages)
+    for (Message message in _messages)
       message.animationController.dispose();
     super.dispose();
   }
