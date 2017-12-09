@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:xmux/config.dart';
 import 'package:xmux/engine/enginepage.dart';
-
-String wolframAppID = "";
 
 class WolframResult extends StatelessWidget {
   final String inputString;
@@ -22,7 +21,7 @@ class WolframResult extends StatelessWidget {
             new Image(
                 image: new NetworkImage(
                     "http://api.wolframalpha.com/v1/simple?appid=" +
-                        wolframAppID +
+                        WolframConfig.appID +
                         "&i=" + Uri.encodeComponent(inputString) +
                         "&fontsize=18&width=400")),
           ],

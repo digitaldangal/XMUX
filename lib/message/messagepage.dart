@@ -66,21 +66,23 @@ class _MessageScreenState extends State<MessageScreen>
   bool _isComposing = false;
 
   void _handleSubmitted(String text) {
-    _textController.clear();
-    setState(() {
-      _isComposing = false;
-    });
-    Message message = new Message(
-      name: "Me",
-      text: text,
-      animationController: new AnimationController(
-        duration: new Duration(milliseconds: 700),
-        vsync: this,
-      ),
-    );
-    _messages.insert(0, message);
-    message.animationController.forward();
-    _getReply(text);
+    if (text.isNotEmpty) {
+      _textController.clear();
+      setState(() {
+        _isComposing = false;
+      });
+      Message message = new Message(
+        name: "Me",
+        text: text,
+        animationController: new AnimationController(
+          duration: new Duration(milliseconds: 700),
+          vsync: this,
+        ),
+      );
+      _messages.insert(0, message);
+      message.animationController.forward();
+      _getReply(text);
+    }
   }
 
   Future<bool> _getReply(String text) async {
@@ -166,6 +168,15 @@ class _MessageScreenState extends State<MessageScreen>
       body: new Container(
           child: new Column(
               children: <Widget>[
+                new Card(
+                  child: new Container(
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * 0.95,
+                    child: new Text("Payment message"),
+                  ),
+                ),
                 new Flexible(
                     child: new ListView.builder(
                       padding: new EdgeInsets.all(8.0),
