@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Message extends StatelessWidget {
-  Message({this.text, this.animationController, this.name});
+  Message({this.name, this.text, this.animationController});
 
   final String name;
   final String text;
@@ -16,11 +16,11 @@ class Message extends StatelessWidget {
     return new SizeTransition(
         sizeFactor: new CurvedAnimation(
             parent: animationController,
-            curve: Curves.easeOut
+            curve: Curves.linear
         ),
         axisAlignment: 0.0,
         child: new Container(
-          margin: const EdgeInsets.symmetric(vertical: 10.0),
+          margin: const EdgeInsets.symmetric(vertical: 8.0),
           child: new Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -38,8 +38,11 @@ class Message extends StatelessWidget {
                   new Container(
                     margin: const EdgeInsets.only(top: 5.0),
                     child: new Container(
-                      width: MediaQuery.of(context).size.width*0.80,
-                        child: new Text(text),),
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width * 0.80,
+                      child: new Text(text),),
                   ),
                 ],
               ),
@@ -55,7 +58,9 @@ class MessageScreen extends StatefulWidget {
   State createState() => new _MessageScreenState();
 }
 
-class _MessageScreenState extends State<MessageScreen> with TickerProviderStateMixin {
+class _MessageScreenState extends State<MessageScreen>
+    with TickerProviderStateMixin {
+
   final List<Message> _messages = <Message>[];
   final TextEditingController _textController = new TextEditingController();
   bool _isComposing = false;
@@ -66,17 +71,32 @@ class _MessageScreenState extends State<MessageScreen> with TickerProviderStateM
       _isComposing = false;
     });
     Message message = new Message(
+      name: "Me",
       text: text,
       animationController: new AnimationController(
         duration: new Duration(milliseconds: 700),
         vsync: this,
       ),
-      name: "Me",
     );
-    setState(() {
-      _messages.insert(0, message);
-    });
+    _messages.insert(0, message);
     message.animationController.forward();
+    _getReply(text);
+  }
+
+  Future<bool> _getReply(String text) async {
+    var response = await http.post(
+        "https://xmux.azurewebsites.net/chat", body: {"msg": text});
+    if (response.statusCode >= 500)
+      return false;
+    var resJson = JSON.decode(response.body);
+    Message message = new Message(
+      text: resJson["reply"],
+      name: "Bdbai",
+    );
+    print(message);
+    _messages.insert(0, message);
+    message.animationController.forward();
+    return true;
   }
 
   void dispose() {
@@ -98,7 +118,7 @@ class _MessageScreenState extends State<MessageScreen> with TickerProviderStateM
                 controller: _textController,
                 onChanged: (String text) {
                   setState(() {
-                    _isComposing = text.length > 0;
+                    _isComposing = text.isNotEmpty;
                   });
                 },
                 onSubmitted: _handleSubmitted,
@@ -154,7 +174,6 @@ class _MessageScreenState extends State<MessageScreen> with TickerProviderStateM
                       itemCount: _messages.length,
                     )
                 ),
-                new Divider(height: 1.0),
                 new Container(
                   decoration: new BoxDecoration(
                       color: Theme
@@ -169,7 +188,7 @@ class _MessageScreenState extends State<MessageScreen> with TickerProviderStateM
               .platform == TargetPlatform.iOS
               ? new BoxDecoration(
               border: new Border(top: new BorderSide(color: Colors.grey[200])))
-              : null), //new
+              : null),
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xmux/enginepage.dart';
+import 'package:xmux/engine/enginepage.dart';
 import 'package:xmux/engine/wolframresult.dart';
 
 class InputConstructor extends StatefulWidget {
