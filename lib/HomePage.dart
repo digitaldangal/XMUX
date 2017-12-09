@@ -23,7 +23,7 @@ class HomePageState extends State<HomePage> {
         children: <Widget>[
           new Offstage(
             offstage: _currentIndex != 0,
-            child: new MessageScreen(),
+            child: new ChatScreen(),
           ),
           new Offstage(
             offstage: _currentIndex != 1,
