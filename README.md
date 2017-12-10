@@ -1,5 +1,4 @@
 # XMUX
-XMUX Client by Flutter
 XMUX is a powerful mobile application for everyone in Xiamen University Malaysia.
 
 ## Warning
