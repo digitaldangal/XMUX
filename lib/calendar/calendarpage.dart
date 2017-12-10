@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'exams.dart';
 import 'timetable.dart';
 import 'package:xmux/main.dart';
 import 'package:xmux/Events/LoginEvent.dart';
@@ -14,8 +15,7 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
-
-  var data;
+  var classesData, examsData;
   String id, password;
 
   Future<File> _getFile(String name) async {
@@ -37,7 +37,18 @@ class _CalendarPageState extends State<CalendarPage> {
       "pass": password,
     });
     setState(() {
-      data = JSON.decode(response.body);
+      classesData = JSON.decode(response.body);
+    });
+  }
+
+  Future<Null> _getExams() async {
+    var response =
+        await http.post("https://xmux.azurewebsites.net/exam", body: {
+      "id": id,
+      "pass": password,
+    });
+    setState(() {
+      examsData = JSON.decode(response.body);
     });
   }
 
@@ -48,11 +59,13 @@ class _CalendarPageState extends State<CalendarPage> {
       id = loginInfo["id"];
       password = loginInfo["campus"];
       _getClasses();
+      _getExams();
     });
     loginEventBus.on(LoginEvent).listen((LoginEvent e) {
       id = e.id;
       password = e.campusIdPassword;
       _getClasses();
+      _getExams();
     });
   }
 
@@ -64,30 +77,27 @@ class _CalendarPageState extends State<CalendarPage> {
       child: new Scaffold(
         appBar: new AppBar(
           title: const Text('Calendar'),
-          bottom: new TabBar(
-              tabs: <Tab>[
-                new Tab(
-                  text: "Classes",
-                ),
-                new Tab(
-                  text: "Exams",
-                ),
-                new Tab(
-                  text: "Payment",
-                ),
-                new Tab(
-                  text: "ToDo",
-                ),
-              ]),
+          bottom: new TabBar(tabs: <Tab>[
+            new Tab(
+              text: "Classes",
+            ),
+            new Tab(
+              text: "Exams",
+            ),
+            new Tab(
+              text: "Payment",
+            ),
+            new Tab(
+              text: "ToDo",
+            ),
+          ]),
         ),
-        body: new TabBarView(
-            children: <Widget>[
-              data == null ? new _ErrorPage(): new ClassesPage(data),
-              new _ErrorPage(),
-              new _ErrorPage(),
-              new _ErrorPage(),
-            ]
-        ),
+        body: new TabBarView(children: <Widget>[
+          classesData == null ? new _ErrorPage() : new ClassesPage(classesData),
+          examsData == null ? new _ErrorPage() : new ExamsPage(examsData),
+          new _ErrorPage(),
+          new _ErrorPage(),
+        ]),
       ),
     );
   }
@@ -108,11 +118,11 @@ class _ErrorPage extends StatelessWidget {
               new Icon(
                 Icons.error,
                 size: 60.0,
-                color: Theme
-                    .of(context)
-                    .errorColor,
+                color: Theme.of(context).errorColor,
               ),
-              new Divider(height: 20.0,),
+              new Divider(
+                height: 20.0,
+              ),
               new Text(
                 "Oh ! Nothing is here !\n\nPlease check:\n You are logined successfully.\nYour have connected to internet.",
                 textAlign: TextAlign.center,
