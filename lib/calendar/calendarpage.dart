@@ -4,9 +4,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'package:xmux/calendar/assignment.dart';
 import 'package:xmux/calendar/exams.dart';
 import 'package:xmux/calendar/payment.dart';
 import 'package:xmux/calendar/timetable.dart';
+import 'package:xmux/calendar/todo.dart';
 import 'package:xmux/main.dart';
 import 'package:xmux/Events/LoginEvent.dart';
 
@@ -16,7 +18,7 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
-  var classesData, examsData, paymentData;
+  var classesData, examsData, paymentData, assData;
   String id, password, ePassword;
 
   Future<File> _getFile(String name) async {
@@ -64,16 +66,23 @@ class _CalendarPageState extends State<CalendarPage> {
     });
   }
 
+  Future<Null> _getAssignment() async {
+    var response = await http
+        .post("https://xmux.azurewebsites.net/moodle/assignment", body: {
+      "id": id,
+      "pass": password,
+    });
+    setState(() {
+      assData = JSON.decode(response.body);
+    });
+  }
+
   @override
   void initState() {
     _readFile("login.dat").then((String str) {
       Map loginInfo = JSON.decode(str);
-      id = loginInfo["id"];
-      password = loginInfo["campus"];
-      ePassword = loginInfo["epayment"];
-      _getClasses();
-      _getExams();
-      _getPayment();
+      loginEventBus.fire(new LoginEvent(
+          loginInfo["id"], loginInfo["campus"], loginInfo["epayment"]));
     });
     loginEventBus.on(LoginEvent).listen((LoginEvent e) {
       id = e.id;
@@ -82,6 +91,7 @@ class _CalendarPageState extends State<CalendarPage> {
       _getClasses();
       _getExams();
       _getPayment();
+      _getAssignment();
     });
   }
 
@@ -93,7 +103,7 @@ class _CalendarPageState extends State<CalendarPage> {
       child: new Scaffold(
         appBar: new AppBar(
           title: const Text('Calendar'),
-          bottom: new TabBar(tabs: <Tab>[
+          bottom: new TabBar(isScrollable: true, tabs: <Tab>[
             new Tab(
               text: "Classes",
             ),
@@ -104,7 +114,7 @@ class _CalendarPageState extends State<CalendarPage> {
               text: "Payment",
             ),
             new Tab(
-              text: "ToDo",
+              text: "Assignment",
             ),
           ]),
         ),
@@ -112,7 +122,7 @@ class _CalendarPageState extends State<CalendarPage> {
           classesData == null ? new _ErrorPage() : new ClassesPage(classesData),
           examsData == null ? new _ErrorPage() : new ExamsPage(examsData),
           paymentData == null ? new _ErrorPage() : new PaymentPage(paymentData),
-          new _ErrorPage(),
+          assData == null ? new _ErrorPage() : new AssignmentPage(assData),
         ]),
       ),
     );

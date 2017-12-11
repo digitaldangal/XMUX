@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 class PaymentPage extends StatelessWidget {
   final Map rawData;
 
-  PaymentPage(this.rawData);
+  PaymentPage(this.rawData, {Key key}) : super (key: key);
 
   @override
   Widget build(BuildContext context) {
     return new ListView.builder(
-        reverse: true,
+        reverse: false,
         itemCount: rawData["data"].length,
         itemBuilder: (_, int index) {
-          return new _PaymentCard(rawData["data"][index]);
+          return new _PaymentCard(
+              rawData["data"][rawData["data"].length - 1 - index]);
         });
   }
 }

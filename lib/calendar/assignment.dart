@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 
-class ExamsPage extends StatelessWidget {
-  final Map rawData;
+class AssignmentPage extends StatelessWidget {
+  final List rawData;
 
-  ExamsPage(this.rawData, {Key key}) : super (key: key);
+  AssignmentPage(this.rawData, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return new ListView.builder(
-        itemCount: rawData["data"].length,
+        itemCount: rawData.length,
         itemBuilder: (_, int index) {
-          return new _ExamCard(rawData["data"][index]);
+          return new _AssCard(rawData[index]);
         });
   }
 }
 
-class _ExamCard extends StatelessWidget {
-  final Map examData;
+class _AssCard extends StatelessWidget {
+  final Map AssData;
 
-  _ExamCard(this.examData);
+  _AssCard(this.AssData);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class _ExamCard extends StatelessWidget {
                   new Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: new Text(
-                      examData["Course Name"],
+                      AssData["fullname"],
                       style: Theme
                           .of(context)
                           .textTheme
@@ -44,13 +44,20 @@ class _ExamCard extends StatelessWidget {
                           .copyWith(color: Colors.black54),
                     ),
                   ),
-                  new Text(examData["Exam Date"] +
-                      " " +
-                      examData["Exam Day"] +
-                      " " +
-                      examData["Exam Time"]),
-                  new Text(examData["Exam Venue"]),
-                  new Text(examData["Exam Type"]),
+                  new Column(
+                    children: (AssData["assignments"] as List)
+                        .map((var e) => new Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                new Text(e["name"]),
+                                new Text("DeadLine : " + e["duedate"]),
+                                new Divider(
+                                  height: 5.0,
+                                )
+                              ],
+                            ))
+                        .toList(),
+                  ),
                 ],
               ),
             ),
