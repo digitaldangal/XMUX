@@ -8,7 +8,6 @@ import 'package:xmux/calendar/assignment.dart';
 import 'package:xmux/calendar/exams.dart';
 import 'package:xmux/calendar/payment.dart';
 import 'package:xmux/calendar/timetable.dart';
-import 'package:xmux/calendar/todo.dart';
 import 'package:xmux/main.dart';
 import 'package:xmux/Events/LoginEvent.dart';
 

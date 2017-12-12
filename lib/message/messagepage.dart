@@ -1,22 +1,25 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:xmux/Events/LoginEvent.dart';
+import 'package:xmux/main.dart';
 
-final googleSignIn = new GoogleSignIn();
 final analytics = new FirebaseAnalytics();
 final auth = FirebaseAuth.instance;
 var reference;
+FirebaseUser user;
 
 @override
 class ChatMessage extends StatelessWidget {
@@ -74,36 +77,48 @@ class ChatScreenState extends State<ChatScreen> {
   final TextEditingController _textController = new TextEditingController();
   bool _isComposing = false;
 
-  Future<bool> _ensureLoggedIn(bool force) async {
-    GoogleSignInAccount user = googleSignIn.currentUser;
-    if (user != null) return true;
-    user = await googleSignIn.signInSilently();
-    if (user == null) {
-      if (force) {
-        user = await googleSignIn.signIn();
+  String email, pass;
 
-        analytics.logLogin();
-      } else
-        return false;
+  Future<bool> _ensureLoggedIn() async {
+    if (email == null) {
+      Scaffold
+          .of(context)
+          .showSnackBar(new SnackBar(content: new Text("Please Log in !")));
+      return false;
     }
     if (await auth.currentUser() == null) {
-      GoogleSignInAuthentication credentials =
-      await googleSignIn.currentUser.authentication;
-      await auth.signInWithGoogle(
-        idToken: credentials.idToken,
-        accessToken: credentials.accessToken,
-      );
-      reference = FirebaseDatabase.instance.reference().child('messages');
+      user =
+          await auth.signInWithEmailAndPassword(email: email, password: pass);
+      setState((){reference = FirebaseDatabase.instance.reference().child('messages');});
+      return true;
     }
+    reference = FirebaseDatabase.instance.reference().child('messages');
+    if (user == null) user = await auth.currentUser();
     return true;
   }
 
+  Future<File> _getFile(String name) async {
+    String dir = (await getApplicationDocumentsDirectory()).path;
+    return new File('$dir/$name');
+  }
+
+  Future<String> _readFile(String name) async {
+    return await (await _getFile(name)).readAsString();
+  }
+
   @override
-  Future<dynamic> initState() async {
-    if (await _ensureLoggedIn(false))
-      this.setState(() {
-        reference = FirebaseDatabase.instance.reference().child('messages');
-      });
+  void initState() {
+    _readFile("login.dat").then((String str) async {
+      Map loginInfo = JSON.decode(str);
+      email = (loginInfo["id"] as String).toLowerCase() + "@xmu.edu.my";
+      pass = loginInfo["campus"];
+      await _ensureLoggedIn();
+    });
+    loginEventBus.on(LoginEvent).listen((LoginEvent e) {
+      email = (e.id as String).toLowerCase() + "@xmu.edu.my";
+      pass = e.campusIdPassword;
+      _ensureLoggedIn();
+    });
   }
 
   @override
@@ -149,15 +164,16 @@ class ChatScreenState extends State<ChatScreen> {
               child: new IconButton(
                   icon: new Icon(Icons.photo_camera),
                   onPressed: () async {
-                    await _ensureLoggedIn(true);
-                    File imageFile = await ImagePicker.pickImage();
-                    int random = new Random().nextInt(100000);
-                    StorageReference ref = FirebaseStorage.instance
-                        .ref()
-                        .child("image_$random.jpg");
-                    StorageUploadTask uploadTask = ref.put(imageFile);
-                    Uri downloadUrl = (await uploadTask.future).downloadUrl;
-                    _sendMessage(imageUrl: downloadUrl.toString());
+                    if (await _ensureLoggedIn()) {
+                      File imageFile = await ImagePicker.pickImage();
+                      int random = new Random().nextInt(100000);
+                      StorageReference ref = FirebaseStorage.instance
+                          .ref()
+                          .child("image_$random.jpg");
+                      StorageUploadTask uploadTask = ref.put(imageFile);
+                      Uri downloadUrl = (await uploadTask.future).downloadUrl;
+                      _sendMessage(imageUrl: downloadUrl.toString());
+                    }
                   }),
             ),
             new Flexible(
@@ -202,19 +218,15 @@ class ChatScreenState extends State<ChatScreen> {
     setState(() {
       _isComposing = false;
     });
-    await _ensureLoggedIn(true);
-    this.setState(() {
-      reference = FirebaseDatabase.instance.reference().child('messages');
-    });
-    _sendMessage(text: text);
+    if (await _ensureLoggedIn()) _sendMessage(text: text);
   }
 
   void _sendMessage({String text, String imageUrl}) {
     reference.push().set({
       'text': text,
       'imageUrl': imageUrl,
-      'senderName': googleSignIn.currentUser.displayName,
-      'senderPhotoUrl': googleSignIn.currentUser.photoUrl,
+      'senderName': user.displayName,
+      'senderPhotoUrl':user.photoUrl,
     });
     analytics.logEvent(name: 'send_message');
   }

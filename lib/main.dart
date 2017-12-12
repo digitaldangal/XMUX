@@ -1,4 +1,4 @@
-import 'package:dart:async';
+import 'dart:async';
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/engine/inputconstructor.dart';
@@ -24,22 +24,22 @@ void main() {
 }
 
 Future mainFunc() async {
-    
-    runApp(new MaterialApp(home: new Scaffold(
-      backgroundColor: Colors.purple[900],
-      body: new Center(
-        child: new Text(
-          "X",
-          style: new TextStyle(
-            color: Colors.white;
-            fontSize: 100.0;
-          ),
-        ),
-      ),
-    )));
-    
-    await Future.delayed(const Duration(seconds: 2),() => "1");
-  
+//
+//    runApp(new MaterialApp(home: new Scaffold(
+//      backgroundColor: Colors.purple[900],
+//      body: new Center(
+//        child: new Text(
+//          "X",
+//          style: new TextStyle(
+//            color: Colors.white,
+//            fontSize: 100.0,
+//          ),
+//        ),
+//      ),
+//    )));
+//
+//    await Future.(const Duration(seconds: 2),() => "1");
+//
     runApp(
     new MaterialApp(
       title: 'XMUX',
