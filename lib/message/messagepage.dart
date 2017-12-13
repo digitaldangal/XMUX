@@ -6,7 +6,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
@@ -16,7 +15,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:xmux/Events/LoginEvent.dart';
 import 'package:xmux/main.dart';
 
-final analytics = new FirebaseAnalytics();
 final auth = FirebaseAuth.instance;
 var reference;
 FirebaseUser user;
@@ -245,6 +243,5 @@ class ChatScreenState extends State<ChatScreen> {
       'senderName': user.displayName,
       'senderPhotoUrl': user.photoUrl,
     });
-    analytics.logEvent(name: 'send_message');
   }
 }
