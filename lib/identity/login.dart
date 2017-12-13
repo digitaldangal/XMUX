@@ -135,7 +135,9 @@ class _LoginPageState extends State<LoginPage> {
                   Scaffold.of(context).showSnackBar(
                       new SnackBar(content: new Text("Success!")));
                   loginEventBus.fire(new LoginEvent(
-                      infoMap["id"], infoMap["campus"], infoMap["epayment"]));
+                      id:infoMap["id"],
+                      campusIdPassword:infoMap["campus"],
+                      ePaymentPassword:infoMap["epayment"]));
                 } else
                   Scaffold
                       .of(context)

@@ -146,7 +146,7 @@ class ChatScreenState extends State<ChatScreen> {
               padding: new EdgeInsets.all(8.0),
               reverse: true,
               itemBuilder: (_, DataSnapshot snapshot,
-                  Animation<double> animation) {
+                  Animation<double> animation,int index) {
                 return new ChatMessage(
                     snapshot: snapshot, animation: animation);
               },

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class InitPage extends StatelessWidget {
@@ -33,3 +35,7 @@ class InitPage extends StatelessWidget {
     );
   }
 }
+//
+//Future init(){
+//
+//}

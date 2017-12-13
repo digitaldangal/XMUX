@@ -81,7 +81,9 @@ class _CalendarPageState extends State<CalendarPage> {
     _readFile("login.dat").then((String str) {
       Map loginInfo = JSON.decode(str);
       loginEventBus.fire(new LoginEvent(
-          loginInfo["id"], loginInfo["campus"], loginInfo["epayment"]));
+          id:loginInfo["id"],
+          campusIdPassword:loginInfo["campus"],
+          ePaymentPassword:loginInfo["epayment"]));
     });
     loginEventBus.on(LoginEvent).listen((LoginEvent e) {
       id = e.id;
