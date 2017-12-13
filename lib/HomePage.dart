@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:xmux/calendar/calendarpage.dart';
 import 'package:xmux/engine/enginepage.dart';
+import 'package:xmux/identity/me.dart';
 import 'package:xmux/message/messagepage.dart';
-import 'package:xmux/identity/login.dart';
-
-var setter;
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -43,7 +41,7 @@ class HomePageState extends State<HomePage> {
             child: new TickerMode(
               enabled: _currentIndex == 3,
               child: new Scaffold(
-                body: new LoginPage(),
+                body: new MePage(),
               ),
             ),
           ),
@@ -78,7 +76,6 @@ class HomePageState extends State<HomePage> {
           setState(() {
             _currentIndex = index;
           });
-
         },
       ),
     );

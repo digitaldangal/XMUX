@@ -12,8 +12,6 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:xmux/Events/LoginEvent.dart';
-import 'package:xmux/main.dart';
 
 final auth = FirebaseAuth.instance;
 var reference;
@@ -113,16 +111,11 @@ class ChatScreenState extends State<ChatScreen> {
   void initState() {
     _readFile("login.dat").then((String str) async {
       Map loginInfo = JSON.decode(str);
-      email = (loginInfo["id"] as String).toLowerCase() + "@xmu.edu.my";
-      pass = loginInfo["campus"];
+      email = (loginInfo["campusId"] as String).toLowerCase() + "@xmu.edu.my";
+      pass = loginInfo["password"];
       user =
       await auth.signInWithEmailAndPassword(email: email, password: pass);
       await _ensureLoggedIn();
-    });
-    loginEventBus.on(LoginEvent).listen((LoginEvent e) {
-      email = (e.id as String).toLowerCase() + "@xmu.edu.my";
-      pass = e.campusIdPassword;
-      _ensureLoggedIn();
     });
   }
 
