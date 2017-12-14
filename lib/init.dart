@@ -10,6 +10,7 @@ import 'package:xmux/config.dart';
 import 'package:xmux/identity/login.dart';
 
 EventBus loginEventBus = new EventBus();
+PersonalInfoState globalPersonalInfoState = new PersonalInfoState();
 CalendarState globalCalendarState = new CalendarState();
 
 Future<bool> init() async {
@@ -22,18 +23,29 @@ Future<bool> init() async {
     return false;
   }
   Map loginInfoJson = JSON.decode(loginInfo);
-  var response = await http.post("http://cce4ee43.ngrok.io/refresh", body: {
+  var response = await http.post(BackendApiConfig.address + "/refresh", body: {
     "id": loginInfoJson["campusId"],
     "cpass": loginInfoJson["password"],
+    "epass": loginInfoJson["ePaymentPassword"],
   });
   Map resJson = JSON.decode(response.body);
   if (resJson.containsKey("error")) {
     runLoginPage();
     return false;
   }
+
+  globalPersonalInfoState.campusId = loginInfoJson["campusId"];
+  globalPersonalInfoState.password = loginInfoJson["password"];
+  globalPersonalInfoState.ePaymentPassword =
+      loginInfoJson["ePaymentPassword"] == null
+          ? null
+          : loginInfoJson["ePaymentPassword"];
   globalCalendarState.classesData = resJson["timetable"];
   globalCalendarState.examsData = resJson["exam"];
   globalCalendarState.assignmentData = resJson["assignment"];
+  globalCalendarState.paymentData =
+      resJson["bill"] == null ? null : resJson["bill"];
+
   return true;
 }
 
@@ -44,14 +56,27 @@ void runLoginPage() {
   ));
 }
 
+class PersonalInfoState {
+  String campusId, password, ePaymentPassword;
+  String fullName, avatarURL;
+
+  PersonalInfoState(
+      {this.campusId,
+      this.password,
+      this.ePaymentPassword,
+      this.fullName,
+      this.avatarURL});
+}
+
 class CalendarState {
   Map classesData, examsData, paymentData;
   List assignmentData;
 
-  CalendarState({this.classesData,
-    this.examsData,
-    this.paymentData,
-    this.assignmentData});
+  CalendarState(
+      {this.classesData,
+      this.examsData,
+      this.paymentData,
+      this.assignmentData});
 }
 
 class InitPage extends StatelessWidget {
