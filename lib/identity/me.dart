@@ -15,7 +15,7 @@ class MePage extends StatefulWidget {
 
 class MePageState extends State<MePage> {
   final TextEditingController _ePaymentPasswordController =
-  new TextEditingController();
+      new TextEditingController();
   bool _isProcessing = false;
 
   Future<bool> _loginEPayment() async {
@@ -42,7 +42,7 @@ class MePageState extends State<MePage> {
     _saveData(JSON.encode({
       "campusId": globalPersonalInfoState.campusId,
       "password": globalPersonalInfoState.password,
-      "ePaymentPassword":globalPersonalInfoState.ePaymentPassword,
+      "ePaymentPassword": globalPersonalInfoState.ePaymentPassword,
     }));
     return true;
   }
@@ -54,9 +54,7 @@ class MePageState extends State<MePage> {
 
   void _handleSubmitted() {
     if (_ePaymentPasswordController.text.isEmpty)
-      Scaffold
-          .of(context)
-          .showSnackBar(
+      Scaffold.of(context).showSnackBar(
           new SnackBar(content: new Text("Format Error. Please Check.")));
     else {
       setState(() {
@@ -77,6 +75,8 @@ class MePageState extends State<MePage> {
   Future<Null> _deleteData() async {
     String dir = (await getApplicationDocumentsDirectory()).path;
     await (new File('$dir/login.dat')).delete();
+    globalPersonalInfoState.clear();
+    globalCalendarState.clear();
     runLoginPage();
   }
 
@@ -92,20 +92,16 @@ class MePageState extends State<MePage> {
           new CircleAvatar(
             radius: 40.0,
             backgroundImage:
-            new NetworkImage(globalPersonalInfoState.avatarURL),
+                new NetworkImage(globalPersonalInfoState.avatarURL),
           ),
           new Divider(
             height: 15.0,
-            color: Theme
-                .of(context)
-                .canvasColor,
+            color: Theme.of(context).canvasColor,
           ),
           new Text(globalPersonalInfoState.fullName),
           new Divider(
             height: 10.0,
-            color: Theme
-                .of(context)
-                .canvasColor,
+            color: Theme.of(context).canvasColor,
           ),
           new Container(
             margin: const EdgeInsets.only(left: 30.0, right: 20.0),
@@ -119,24 +115,22 @@ class MePageState extends State<MePage> {
               _isProcessing
                   ? new CircularProgressIndicator()
                   : new Container(
-                  margin: new EdgeInsets.symmetric(horizontal: 4.0),
-                  child: new IconButton(
-                    icon: new Icon(Icons.save),
-                    onPressed: _handleSubmitted,
-                  )),
+                      margin: new EdgeInsets.symmetric(horizontal: 4.0),
+                      child: new IconButton(
+                        icon: new Icon(Icons.save),
+                        onPressed: _handleSubmitted,
+                      )),
             ]),
           ),
           new Divider(
             height: 15.0,
-            color: Theme
-                .of(context)
-                .canvasColor,
+            color: Theme.of(context).canvasColor,
           ),
           new Center(
               child: new IconButton(
-                icon: new Icon(Icons.exit_to_app),
-                onPressed: _deleteData,
-              )),
+            icon: new Icon(Icons.exit_to_app),
+            onPressed: _deleteData,
+          )),
         ],
       ),
     );

@@ -165,7 +165,6 @@ class MessagePageState extends State<MessagePage> {
                     _isComposing = text.length > 0;
                   });
                 },
-                onSubmitted: _handleSubmitted,
                 decoration:
                     new InputDecoration.collapsed(hintText: "Send a message"),
               ),
