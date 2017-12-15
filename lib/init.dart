@@ -3,12 +3,14 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:event_bus/event_bus.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/identity/login.dart';
 
+final FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
 EventBus updateEventBus = new EventBus();
 PersonalInfoState globalPersonalInfoState = new PersonalInfoState();
 CalendarState globalCalendarState = new CalendarState();
@@ -66,6 +68,14 @@ class PersonalInfoState {
       this.ePaymentPassword,
       this.fullName,
       this.avatarURL});
+
+  void clear() {
+    this.campusId = null;
+    this.password = null;
+    this.ePaymentPassword = null;
+    this.fullName = null;
+    this.avatarURL = null;
+  }
 }
 
 class CalendarState {
@@ -77,6 +87,13 @@ class CalendarState {
       this.examsData,
       this.paymentData,
       this.assignmentData});
+
+  void clear() {
+    this.classesData = null;
+    this.examsData = null;
+    this.paymentData = null;
+    this.assignmentData = null;
+  }
 }
 
 class InitPage extends StatelessWidget {
