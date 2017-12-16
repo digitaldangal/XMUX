@@ -17,9 +17,9 @@ class AssignmentPage extends StatelessWidget {
 }
 
 class _AssCard extends StatelessWidget {
-  final Map AssData;
+  final Map assData;
 
-  _AssCard(this.AssData);
+  _AssCard(this.assData);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class _AssCard extends StatelessWidget {
                   new Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: new Text(
-                      AssData["fullname"],
+                      assData["fullname"],
                       style: Theme
                           .of(context)
                           .textTheme
@@ -46,7 +46,7 @@ class _AssCard extends StatelessWidget {
                     ),
                   ),
                   new Column(
-                    children: (AssData["assignments"] as List)
+                    children: (assData["assignments"] as List)
                         .map((var e) => new MaterialButton(
                               onPressed: () {
                                 launch(
