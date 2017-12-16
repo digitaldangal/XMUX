@@ -14,7 +14,6 @@ class GPACalculatorPage extends StatefulWidget {
 }
 
 class _GPACalculatorPageState extends State<GPACalculatorPage> {
-
   int totalPoint = 0;
   List coursesData;
   List<String> grades = [];
@@ -45,13 +44,18 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
           .of(context)
           .showSnackBar(new SnackBar(content: new Text("Connect Error")));
     }
+    coursesData = coursesData
+        .map((e) => e["Course Name (by group)"].contains("(Lab)") ? null : e)
+        .toList();
+    while (coursesData.contains(null)) coursesData.remove(null);
+    for (int i = 0; i < coursesData.length; i++) coursesData[i]["No."] = i;
   }
 
   double _calculateGPA() {
     double sum = 0.0;
     List<double> points = grades.map((grade) => gradePoints[grade]).toList();
-    for(int i = 0;i<coursesData.length;i++)
-      sum+=points[i]*(coursesCredit[i]/totalPoint);
+    for (int i = 0; i < coursesData.length; i++)
+      sum += points[i] * (coursesCredit[i] / totalPoint);
     return sum;
   }
 
@@ -61,7 +65,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
       for (int i = 0; i < coursesData.length; i++) {
         grades.add("A");
         coursesCredit.add(int.parse(coursesData[i]["Credit"]));
-        totalPoint+=coursesCredit[i];
+        totalPoint += coursesCredit[i];
       }
       setState(() {});
     });
@@ -87,8 +91,9 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
                       child: new Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          new Text("GPA : " + _calculateGPA().toStringAsFixed(1),
-                          style: Theme.of(context).textTheme.title,
+                          new Text(
+                            "GPA : " + _calculateGPA().toStringAsFixed(1),
+                            style: Theme.of(context).textTheme.title,
                           ),
                         ],
                       ),
@@ -101,11 +106,10 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
                         .map((course) => new ListTile(
                               title: new Text(course["Course Name (by group)"]),
                               trailing: new DropdownButton<String>(
-                                value: grades[int.parse(course["No."]) - 1],
+                                value: grades[course["No."]],
                                 onChanged: (String grade) {
                                   setState(() {
-                                    grades[int.parse(course["No."]) - 1] =
-                                        grade;
+                                    grades[course["No."]] = grade;
                                   });
                                 },
                                 items: <String>[
