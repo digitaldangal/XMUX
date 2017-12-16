@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AssignmentPage extends StatelessWidget {
   final List rawData;
@@ -46,15 +47,24 @@ class _AssCard extends StatelessWidget {
                   ),
                   new Column(
                     children: (AssData["assignments"] as List)
-                        .map((var e) => new Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                new Text(e["name"]),
-                                new Text("DeadLine : " + e["duedate"]),
-                                new Divider(
-                                  height: 5.0,
-                                )
-                              ],
+                        .map((var e) => new MaterialButton(
+                              onPressed: () {
+                                launch(
+                                    "https://l.xmu.edu.my/mod/assign/view.php?id=" +
+                                        e["id"].toString());
+                              },
+                              child: new Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  new Text(
+                                    e["name"],
+                                  ),
+                                  new Text("DeadLine : " + e["duedate"]),
+                                  new Divider(
+                                    height: 5.0,
+                                  )
+                                ],
+                              ),
                             ))
                         .toList(),
                   ),

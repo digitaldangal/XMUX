@@ -4,6 +4,7 @@ import 'package:xmux/config.dart';
 import 'package:xmux/init.dart';
 import 'package:xmux/engine/inputconstructor.dart';
 import 'package:xmux/homepage.dart';
+import 'package:xmux/identity/payment.dart';
 
 void main() {
   mainFunc();
@@ -23,6 +24,7 @@ void runMainApp() {
       theme: defaultTheme,
       routes: <String, WidgetBuilder>{
         "/engine/constructor": (BuildContext context) => new InputConstructor(),
+        "/epayment" : (BuildContext context) => new PaymentPage(globalCalendarState.paymentData),
       },
     ),
   );

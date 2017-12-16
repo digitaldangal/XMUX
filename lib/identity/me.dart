@@ -84,13 +84,13 @@ class MePageState extends State<MePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("Sign out"),
+        title: new Text("Me"),
       ),
       body: new Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           new CircleAvatar(
-            radius: 40.0,
+            radius: 30.0,
             backgroundImage:
                 new NetworkImage(globalPersonalInfoState.avatarURL),
           ),
@@ -103,34 +103,76 @@ class MePageState extends State<MePage> {
             height: 10.0,
             color: Theme.of(context).canvasColor,
           ),
-          new Container(
-            margin: const EdgeInsets.only(left: 30.0, right: 20.0),
-            child: new Row(children: <Widget>[
-              new Flexible(
-                child: new TextField(
-                  controller: _ePaymentPasswordController,
-                  decoration: new InputDecoration(hintText: "Login ePayment"),
+          globalPersonalInfoState.ePaymentPassword == null
+              ? new Container(
+                  margin: const EdgeInsets.only(left: 30.0, right: 20.0),
+                  child: new Row(children: <Widget>[
+                    new Flexible(
+                      child: new TextField(
+                        controller: _ePaymentPasswordController,
+                        decoration:
+                            new InputDecoration(hintText: "Login ePayment"),
+                      ),
+                    ),
+                    _isProcessing
+                        ? new CircularProgressIndicator()
+                        : new Container(
+                            margin: new EdgeInsets.symmetric(horizontal: 4.0),
+                            child: new IconButton(
+                              icon: new Icon(Icons.save),
+                              onPressed: _handleSubmitted,
+                            )),
+                  ]),
+                )
+              : new Container(
+                  margin: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 5.0),
+                  child: new MaterialButton(
+                    child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        new Icon(Icons.payment),
+                        new Text(" My E-Payment")
+                      ],
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/epayment");
+                    },
+                  ),
                 ),
+          new Container(
+            margin: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 10.0),
+            child: new MaterialButton(
+              child: new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new Icon(Icons.room_service),
+                  new Text(" Room Reservation")
+                ],
               ),
-              _isProcessing
-                  ? new CircularProgressIndicator()
-                  : new Container(
-                      margin: new EdgeInsets.symmetric(horizontal: 4.0),
-                      child: new IconButton(
-                        icon: new Icon(Icons.save),
-                        onPressed: _handleSubmitted,
-                      )),
-            ]),
+              onPressed: () {
+                Scaffold.of(context).showSnackBar(
+                    new SnackBar(content: new Text("Developing...")));
+              },
+            ),
           ),
           new Divider(
-            height: 15.0,
+            height: 10.0,
             color: Theme.of(context).canvasColor,
           ),
-          new Center(
-              child: new IconButton(
-            icon: new Icon(Icons.exit_to_app),
-            onPressed: _deleteData,
-          )),
+          new Container(
+            margin: const EdgeInsets.all(10.0),
+            child: new MaterialButton(
+              color: Theme.of(context).splashColor,
+              child: new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new Text("Sign out "),
+                  new Icon(Icons.exit_to_app),
+                ],
+              ),
+              onPressed: _deleteData,
+            ),
+          ),
         ],
       ),
     );
