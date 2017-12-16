@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:xmux/config.dart';
+import 'package:xmux/gpacalculator.dart';
 import 'package:xmux/init.dart';
 import 'package:xmux/engine/inputconstructor.dart';
 import 'package:xmux/homepage.dart';
@@ -24,7 +25,9 @@ void runMainApp() {
       theme: defaultTheme,
       routes: <String, WidgetBuilder>{
         "/engine/constructor": (BuildContext context) => new InputConstructor(),
-        "/epayment" : (BuildContext context) => new PaymentPage(globalCalendarState.paymentData),
+        "/epayment": (BuildContext context) =>
+            new PaymentPage(globalCalendarState.paymentData),
+        "/gpa": (BuildContext context) => new GPACalculatorPage(),
       },
     ),
   );

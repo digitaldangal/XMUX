@@ -125,7 +125,7 @@ class MePageState extends State<MePage> {
                   ]),
                 )
               : new Container(
-                  margin: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 5.0),
+                  margin: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 3.0),
                   child: new MaterialButton(
                     child: new Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -140,12 +140,27 @@ class MePageState extends State<MePage> {
                   ),
                 ),
           new Container(
-            margin: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 10.0),
+            margin: const EdgeInsets.fromLTRB(10.0, 3.0, 10.0, 3.0),
             child: new MaterialButton(
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  new Icon(Icons.room_service),
+                  new Icon(Icons.school),
+                  new Text(" GPA Calculator")
+                ],
+              ),
+              onPressed: () {
+                Navigator.of(context).pushNamed("/gpa");
+              },
+            ),
+          ),
+          new Container(
+            margin: const EdgeInsets.fromLTRB(10.0, 3.0, 10.0, 10.0),
+            child: new MaterialButton(
+              child: new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new Icon(Icons.room),
                   new Text(" Room Reservation")
                 ],
               ),
