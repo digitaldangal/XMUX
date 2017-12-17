@@ -112,6 +112,7 @@ class MePageState extends State<MePage> {
                         controller: _ePaymentPasswordController,
                         decoration:
                             new InputDecoration(hintText: "Login ePayment"),
+                        obscureText: true,
                       ),
                     ),
                     _isProcessing
@@ -166,7 +167,7 @@ class MePageState extends State<MePage> {
               ),
               onPressed: () {
                 Scaffold.of(context).showSnackBar(
-                    new SnackBar(content: new Text("Developing...")));
+                    new SnackBar(content: new Text("Coming soon...")));
               },
             ),
           ),

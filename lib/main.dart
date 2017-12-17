@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:xmux/config.dart';
-import 'package:xmux/gpacalculator.dart';
+import 'package:xmux/tools/gpacalculator.dart';
 import 'package:xmux/init.dart';
 import 'package:xmux/engine/inputconstructor.dart';
 import 'package:xmux/homepage.dart';

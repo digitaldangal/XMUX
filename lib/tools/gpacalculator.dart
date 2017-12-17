@@ -59,6 +59,15 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
     return sum;
   }
 
+  Color _getGPAColor(double point) {
+    if (point >= 3.7)
+      return Colors.green;
+    else if (point >= 1.7)
+      return Colors.orange;
+    else
+      return Colors.red;
+  }
+
   @override
   void initState() {
     _getCourses().then((Null) {
@@ -92,8 +101,12 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           new Text(
-                            "GPA : " + _calculateGPA().toStringAsFixed(1),
-                            style: Theme.of(context).textTheme.title,
+                            "Your GPA : " + _calculateGPA().toStringAsFixed(1),
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .title
+                                .copyWith(color: _getGPAColor(_calculateGPA())),
                           ),
                         ],
                       ),

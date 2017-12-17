@@ -122,6 +122,8 @@ class _InputConstructorState extends State<InputConstructor> {
           new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              getInputButton(","),
+              getInputButton("%"),
               new MaterialButton(
                 child: new Text("Clear All"),
                 onPressed: () {
