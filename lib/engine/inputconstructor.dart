@@ -86,7 +86,7 @@ class _InputConstructorState extends State<InputConstructor> {
                       offset: _inputTextController.text.length);
                 });
               },
-              items: <String>['solve', 'upper triangular', 'row reduce']
+              items: <String>['solve', 'upper triangular', 'row reduce','integral']
                   .map((String value) {
                 return new DropdownMenuItem<String>(
                   value: value,
