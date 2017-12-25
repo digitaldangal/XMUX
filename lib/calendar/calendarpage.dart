@@ -3,6 +3,7 @@ import 'package:xmux/calendar/assignment.dart';
 import 'package:xmux/calendar/exams.dart';
 import 'package:xmux/calendar/timetable.dart';
 import 'package:xmux/init.dart';
+import 'package:xmux/translate.dart';
 
 class CalendarPage extends StatefulWidget {
   @override
@@ -19,16 +20,16 @@ class _CalendarPageState extends State<CalendarPage> {
       initialIndex: 0,
       child: new Scaffold(
         appBar: new AppBar(
-          title: const Text('Calendar'),
+          title: new Text(MainLocalizations.of(context).get("calendar title")),
           bottom: new TabBar(isScrollable: false, tabs: <Tab>[
             new Tab(
-              text: "Classes",
+              text: MainLocalizations.of(context).get("calendar/classes"),
             ),
             new Tab(
-              text: "Exams",
+              text: MainLocalizations.of(context).get("calendar/exams"),
             ),
             new Tab(
-              text: "Assignments",
+              text: MainLocalizations.of(context).get("calendar/assignments"),
             ),
           ]),
         ),

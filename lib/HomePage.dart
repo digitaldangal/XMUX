@@ -3,6 +3,7 @@ import 'package:xmux/calendar/calendarpage.dart';
 import 'package:xmux/engine/enginepage.dart';
 import 'package:xmux/identity/me.dart';
 import 'package:xmux/message/messagepage.dart';
+import 'package:xmux/translate.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -50,22 +51,22 @@ class HomePageState extends State<HomePage> {
       bottomNavigationBar: new BottomNavigationBar(
         items: [
           new BottomNavigationBarItem(
-            title: new Text('Message'),
+            title: new Text(MainLocalizations.of(context).get("messages title")),
             icon: new Icon(Icons.comment),
             backgroundColor: Theme.of(context).primaryColor,
           ),
           new BottomNavigationBarItem(
-            title: new Text('Engine'),
+            title: new Text(MainLocalizations.of(context).get("engine title")),
             icon: new Icon(Icons.explore),
             backgroundColor: enginePageColor,
           ),
           new BottomNavigationBarItem(
-            title: new Text('Calendar'),
+            title: new Text(MainLocalizations.of(context).get("calendar title")),
             icon: new Icon(Icons.calendar_today),
             backgroundColor: Theme.of(context).primaryColor,
           ),
           new BottomNavigationBarItem(
-            title: new Text('Me'),
+            title: new Text(MainLocalizations.of(context).get("me title")),
             icon: new Icon(Icons.person),
             backgroundColor: Theme.of(context).primaryColor,
           ),

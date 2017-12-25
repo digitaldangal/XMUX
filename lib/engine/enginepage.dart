@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:xmux/engine/wolframresult.dart';
+import 'package:xmux/translate.dart';
 
 Color enginePageColor = Colors.orange;
-String engineTitle = "Wolfram Engine";
+String engineTitle = "Wolfram";
 
 class EnginePage extends StatefulWidget {
   EnginePage({Key key}) : super(key: key);
@@ -68,7 +69,7 @@ class _EnginePageState extends State<EnginePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(engineTitle),
+        title: new Text(engineTitle+MainLocalizations.of(context).get("engine title")),
         backgroundColor: enginePageColor,
       ),
       body: buildWolframPage(),
