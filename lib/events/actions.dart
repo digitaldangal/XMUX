@@ -1,4 +1,4 @@
-class Actions {
+class OpenDrawer {
   bool openDrawer;
-  Actions(this.openDrawer);
+  OpenDrawer(this.openDrawer);
 }

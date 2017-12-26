@@ -13,7 +13,7 @@ class MainLocalizations {
       'messages title': 'Messages',
       'calendar title': 'Calendar',
       'academic title': 'Academic',
-      'me title': 'Me',
+      'explore title': 'Explore',
       //Calendar
       'calendar/classes': 'Classes',
       'calendar/exams': 'Exams',
@@ -23,12 +23,15 @@ class MainLocalizations {
       'Academic/wolframengine/caption':'Search anything by powerful Wolfram Engine',
       'Academic/gpacalculator/name':'GPA Calculator',
       'Academic/gpacalculator/caption':'Calculate your GPA easily',
+      //drawer
+      'header/welcome':'Welcome,',
+      'e-payment':' E-Payment',
     },
     'zh': {
       'messages title': '消息',
       'calendar title': '日程',
       'academic title': '学术',
-      'me title': '我',
+      'explore title': '发现',
       //Calendar
       'calendar/classes': '课程',
       'calendar/exams': '考试',
@@ -38,6 +41,9 @@ class MainLocalizations {
       'Academic/wolframengine/caption':'利用强大的 Wolfram 引擎进行搜索',
       'Academic/gpacalculator/name':'GPA 计算器',
       'Academic/gpacalculator/caption':'轻松计算平均学分绩点',
+      //drawer
+      'header/welcome':'您好，',
+      'e-payment':' E-Payment',
     }
   };
 

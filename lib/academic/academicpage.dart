@@ -12,7 +12,7 @@ class AcademicPage extends StatelessWidget {
         leading: new IconButton(
             icon: new Icon(Icons.view_list),
             onPressed: () {
-              actionEventBus.fire(new Actions(true));
+              actionEventBus.fire(new OpenDrawer(true));
             }),
         title: new Text(MainLocalizations.of(context).get("academic title")),
         backgroundColor: Colors.lightBlue,

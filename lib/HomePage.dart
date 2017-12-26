@@ -1,9 +1,9 @@
-import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/academic/academicpage.dart';
 import 'package:xmux/calendar/calendarpage.dart';
+import 'package:xmux/drawer.dart';
 import 'package:xmux/events/actions.dart';
-import 'package:xmux/identity/me.dart';
+import 'package:xmux/explore.dart';
 import 'package:xmux/init.dart';
 import 'package:xmux/message/messagepage.dart';
 import 'package:xmux/translate.dart';
@@ -22,7 +22,7 @@ class HomePageState extends State<HomePage> {
   @override
   void initState(){
     super.initState();
-    actionEventBus.on(Actions).listen((Actions a){
+    actionEventBus.on(OpenDrawer).listen((OpenDrawer a){
       if (a.openDrawer) _scaffoldKey.currentState.openDrawer();
     });
   }
@@ -53,7 +53,7 @@ class HomePageState extends State<HomePage> {
             child: new TickerMode(
               enabled: _currentIndex == 3,
               child: new Scaffold(
-                body: new MePage(),
+                body: new ExplorePage(),
               ),
             ),
           ),
@@ -77,7 +77,7 @@ class HomePageState extends State<HomePage> {
             backgroundColor: Colors.lightBlue,
           ),
           new BottomNavigationBarItem(
-            title: new Text(MainLocalizations.of(context).get("me title")),
+            title: new Text(MainLocalizations.of(context).get("explore title")),
             icon: new Icon(Icons.search),
             backgroundColor: Colors.purple,
           ),
@@ -90,6 +90,7 @@ class HomePageState extends State<HomePage> {
           });
         },
       ),
+      drawer: new DrawerPage(),
       endDrawer: new Drawer(
         child: new Column(
           children: <Widget>[

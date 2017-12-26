@@ -84,7 +84,7 @@ class MePageState extends State<MePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(MainLocalizations.of(context).get("me title")),
+        title: new Text(MainLocalizations.of(context).get("explore title")),
       ),
       body: new Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -151,7 +151,7 @@ class MePageState extends State<MePage> {
                 ],
               ),
               onPressed: () {
-                Navigator.of(context).pushNamed("/acdemic/gpacalculator");
+                Navigator.of(context).pushNamed("/gpa");
               },
             ),
           ),

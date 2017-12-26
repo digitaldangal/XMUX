@@ -44,7 +44,7 @@ class _CalendarPageState extends State<CalendarPage> {
           leading: new IconButton(
               icon: new Icon(Icons.view_list),
               onPressed: () {
-                actionEventBus.fire(new Actions(true));
+                actionEventBus.fire(new OpenDrawer(true));
               }),
           title: new Text(MainLocalizations.of(context).get("calendar title")),
           bottom: new TabBar(isScrollable: false, tabs: <Tab>[
