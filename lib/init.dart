@@ -13,6 +13,7 @@ import 'package:xmux/identity/login.dart';
 final FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
 PersonalInfoState globalPersonalInfoState = new PersonalInfoState();
 CalendarState globalCalendarState = new CalendarState();
+EventBus actionEventBus = new EventBus();
 
 Future<bool> init() async {
   String dir, loginInfo;

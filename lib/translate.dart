@@ -11,23 +11,33 @@ class MainLocalizations {
   static Map<String, Map<String, String>> _localizedValues = {
     'en': {
       'messages title': 'Messages',
-      'academic title': 'academic',
       'calendar title': 'Calendar',
+      'academic title': 'Academic',
       'me title': 'Me',
       //Calendar
       'calendar/classes': 'Classes',
       'calendar/exams': 'Exams',
       'calendar/assignments': 'Assignments',
+      //Academic
+      'Academic/wolframengine/title':'Wolfram Engine',
+      'Academic/wolframengine/caption':'Search anything by powerful Wolfram Engine',
+      'Academic/gpacalculator/name':'GPA Calculator',
+      'Academic/gpacalculator/caption':'Calculate your GPA easily',
     },
     'zh': {
       'messages title': '消息',
-      'academic title': '引擎',
       'calendar title': '日程',
+      'academic title': '学术',
       'me title': '我',
       //Calendar
       'calendar/classes': '课程',
       'calendar/exams': '考试',
       'calendar/assignments': '作业',
+      //Academic
+      'Academic/wolframengine/title':'Wolfram 知识引擎',
+      'Academic/wolframengine/caption':'利用强大的 Wolfram 引擎进行搜索',
+      'Academic/gpacalculator/name':'GPA 计算器',
+      'Academic/gpacalculator/caption':'轻松计算平均学分绩点',
     }
   };
 

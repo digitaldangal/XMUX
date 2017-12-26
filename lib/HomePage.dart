@@ -1,7 +1,10 @@
+import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
+import 'package:xmux/academic/academicpage.dart';
 import 'package:xmux/calendar/calendarpage.dart';
-import 'package:xmux/academic/wolframengine/enginepage.dart';
+import 'package:xmux/events/actions.dart';
 import 'package:xmux/identity/me.dart';
+import 'package:xmux/init.dart';
 import 'package:xmux/message/messagepage.dart';
 import 'package:xmux/translate.dart';
 
@@ -14,10 +17,20 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   int _currentIndex = 0;
+  GlobalKey <ScaffoldState> _scaffoldKey = new GlobalKey();
+
+  @override
+  void initState(){
+    super.initState();
+    actionEventBus.on(Actions).listen((Actions a){
+      if (a.openDrawer) _scaffoldKey.currentState.openDrawer();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      key: _scaffoldKey,
       body: new Stack(
         children: <Widget>[
           new Offstage(
@@ -32,7 +45,7 @@ class HomePageState extends State<HomePage> {
             offstage: _currentIndex != 2,
             child: new TickerMode(
               enabled: _currentIndex == 2,
-              child: new EnginePage(),
+              child: new AcademicPage(),
             ),
           ),
           new Offstage(
@@ -61,12 +74,12 @@ class HomePageState extends State<HomePage> {
           new BottomNavigationBarItem(
             title: new Text(MainLocalizations.of(context).get("academic title")),
             icon: new Icon(Icons.explore),
-            backgroundColor: enginePageColor,
+            backgroundColor: Colors.lightBlue,
           ),
           new BottomNavigationBarItem(
             title: new Text(MainLocalizations.of(context).get("me title")),
-            icon: new Icon(Icons.person),
-            backgroundColor: Theme.of(context).primaryColor,
+            icon: new Icon(Icons.search),
+            backgroundColor: Colors.purple,
           ),
         ],
         currentIndex: _currentIndex,
@@ -77,7 +90,7 @@ class HomePageState extends State<HomePage> {
           });
         },
       ),
-      drawer: new Drawer(
+      endDrawer: new Drawer(
         child: new Column(
           children: <Widget>[
             new DrawerHeader(

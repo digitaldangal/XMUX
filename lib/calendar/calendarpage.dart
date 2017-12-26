@@ -7,13 +7,14 @@ import 'package:xmux/calendar/assignment.dart';
 import 'package:xmux/calendar/exams.dart';
 import 'package:xmux/calendar/timetable.dart';
 import 'package:xmux/config.dart';
+import 'package:xmux/events/actions.dart';
 import 'package:xmux/init.dart';
 import 'package:xmux/translate.dart';
 
 class CalendarPage extends StatefulWidget {
-
-  static Future updateCalendarData() async{
-    var response = await http.post(BackendApiConfig.address + "/refresh", body: {
+  static Future updateCalendarData() async {
+    var response =
+        await http.post(BackendApiConfig.address + "/refresh", body: {
       "id": globalPersonalInfoState.campusId,
       "cpass": globalPersonalInfoState.password,
       "epass": globalPersonalInfoState.ePaymentPassword == null
@@ -40,7 +41,11 @@ class _CalendarPageState extends State<CalendarPage> {
       initialIndex: 0,
       child: new Scaffold(
         appBar: new AppBar(
-          leading: new IconButton(icon: new Icon(Icons.more), onPressed: (){}),
+          leading: new IconButton(
+              icon: new Icon(Icons.view_list),
+              onPressed: () {
+                actionEventBus.fire(new Actions(true));
+              }),
           title: new Text(MainLocalizations.of(context).get("calendar title")),
           bottom: new TabBar(isScrollable: false, tabs: <Tab>[
             new Tab(
