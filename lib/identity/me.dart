@@ -84,7 +84,7 @@ class MePageState extends State<MePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(MainLocalizations.of(context).get("explore title")),
+        title: new Text(MainLocalizations.of(context).get("me")),
       ),
       body: new Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -140,37 +140,7 @@ class MePageState extends State<MePage> {
                     },
                   ),
                 ),
-          new Container(
-            margin: const EdgeInsets.fromLTRB(10.0, 3.0, 10.0, 3.0),
-            child: new MaterialButton(
-              child: new Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new Icon(Icons.school),
-                  new Text(" GPA Calculator")
-                ],
-              ),
-              onPressed: () {
-                Navigator.of(context).pushNamed("/gpa");
-              },
-            ),
-          ),
-          new Container(
-            margin: const EdgeInsets.fromLTRB(10.0, 3.0, 10.0, 10.0),
-            child: new MaterialButton(
-              child: new Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new Icon(Icons.room),
-                  new Text(" Room Reservation")
-                ],
-              ),
-              onPressed: () {
-                Scaffold.of(context).showSnackBar(
-                    new SnackBar(content: new Text("Coming soon...")));
-              },
-            ),
-          ),
+
           new Divider(
             height: 10.0,
             color: Theme.of(context).canvasColor,
@@ -182,7 +152,7 @@ class MePageState extends State<MePage> {
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  new Text("Sign out "),
+                  new Text(MainLocalizations.of(context).get("me/signout")+" "),
                   new Icon(Icons.exit_to_app),
                 ],
               ),

@@ -25,28 +25,28 @@ Future<bool> init() async {
     return false;
   }
   Map loginInfoJson = JSON.decode(loginInfo);
-//  var response = await http.post(BackendApiConfig.address + "/refresh", body: {
-//    "id": loginInfoJson["campusId"],
-//    "cpass": loginInfoJson["password"],
-//    "epass": loginInfoJson["ePaymentPassword"] == null
-//        ? ""
-//        : loginInfoJson["ePaymentPassword"],
-//  });
-//  Map resJson = JSON.decode(response.body);
-//  if (resJson.containsKey("error")) {
-//    runLoginPage();
-//    return false;
-//  }
-//
+  var response = await http.post(BackendApiConfig.address + "/refresh", body: {
+    "id": loginInfoJson["campusId"],
+    "cpass": loginInfoJson["password"],
+    "epass": loginInfoJson["ePaymentPassword"] == null
+        ? ""
+        : loginInfoJson["ePaymentPassword"],
+  });
+  Map resJson = JSON.decode(response.body);
+  if (resJson.containsKey("error")) {
+    runLoginPage();
+    return false;
+  }
+
   globalPersonalInfoState.campusId = loginInfoJson["campusId"];
   globalPersonalInfoState.password = loginInfoJson["password"];
   globalPersonalInfoState.ePaymentPassword = loginInfoJson["ePaymentPassword"];
-//  globalPersonalInfoState.fullName = resJson["moodle"]["fullname"];
-//  globalPersonalInfoState.avatarURL = resJson["moodle"]["userpictureurl"];
-//  globalCalendarState.classesData = resJson["timetable"];
-//  globalCalendarState.examsData = resJson["exam"];
-//  globalCalendarState.assignmentData = resJson["assignment"];
-//  globalCalendarState.paymentData = resJson["bill"];
+  globalPersonalInfoState.fullName = resJson["moodle"]["fullname"];
+  globalPersonalInfoState.avatarURL = resJson["moodle"]["userpictureurl"];
+  globalCalendarState.classesData = resJson["timetable"];
+  globalCalendarState.examsData = resJson["exam"];
+  globalCalendarState.assignmentData = resJson["assignment"];
+  globalCalendarState.paymentData = resJson["bill"];
 
   return true;
 }

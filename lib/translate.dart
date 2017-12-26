@@ -23,8 +23,11 @@ class MainLocalizations {
       'Academic/wolframengine/caption':'Search anything by powerful Wolfram Engine',
       'Academic/gpacalculator/name':'GPA Calculator',
       'Academic/gpacalculator/caption':'Calculate your GPA easily',
+      //me
+      'me':'Me',
+      'me/signout':'Sign out',
       //drawer
-      'header/welcome':'Welcome,',
+      'header/welcome':'Hello,',
       'e-payment':' E-Payment',
     },
     'zh': {
@@ -41,6 +44,9 @@ class MainLocalizations {
       'Academic/wolframengine/caption':'利用强大的 Wolfram 引擎进行搜索',
       'Academic/gpacalculator/name':'GPA 计算器',
       'Academic/gpacalculator/caption':'轻松计算平均学分绩点',
+      //me
+      'me':'我',
+      'me/signout':'登出',
       //drawer
       'header/welcome':'您好，',
       'e-payment':' E-Payment',

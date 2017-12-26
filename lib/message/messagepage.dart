@@ -10,6 +10,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:xmux/events/actions.dart';
 import 'package:xmux/init.dart';
 import 'package:xmux/translate.dart';
 
@@ -86,7 +87,8 @@ class MessagePageState extends State<MessagePage> {
       user =
           await auth.signInWithEmailAndPassword(email: email, password: pass);
       setState(() {
-        reference = FirebaseDatabase.instance.reference().child('messages_beta');
+        reference =
+            FirebaseDatabase.instance.reference().child('messages_beta');
       });
       return true;
     }
@@ -107,6 +109,18 @@ class MessagePageState extends State<MessagePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: new AppBar(
+          ///
+          leading: new IconButton(
+              icon: new CircleAvatar(
+                radius: 18.0,
+                backgroundImage:
+                    new NetworkImage(globalPersonalInfoState.avatarURL),
+              ),
+              onPressed: () {
+                actionEventBus.fire(new OpenDrawer(true));
+              }),
+
+          ///
           title: new Text(MainLocalizations.of(context).get("messages title")),
           elevation:
               Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,

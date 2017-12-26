@@ -13,14 +13,14 @@ class DrawerPage extends StatelessWidget {
             new DrawerHeader(
               child: new FlatButton(
                 onPressed: (){
-                  Navigator.pushNamed(context, "/me");
+                  Navigator.popAndPushNamed(context, "/me");
                 },
                 child: new Row(
                   children: <Widget>[
                     new Container(
                       margin: const EdgeInsets.all(10.0),
                       child: new CircleAvatar(
-                        child: new Image.asset("res/gpa.png"),
+                        backgroundImage: new NetworkImage(globalPersonalInfoState.avatarURL),
                         radius: 30.0,
                       ),
                     ),
@@ -28,7 +28,7 @@ class DrawerPage extends StatelessWidget {
                       child: new Text(
                         MainLocalizations.of(context).get("header/welcome") +
                             "\n" +
-                            "Bdbai",
+                            globalPersonalInfoState.fullName,
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -42,7 +42,7 @@ class DrawerPage extends StatelessWidget {
                   new FlatButton(
                     onPressed: () {
                       if (globalPersonalInfoState.ePaymentPassword != null)
-                        Navigator.pushNamed(context, "/epayment");
+                        Navigator.popAndPushNamed(context, "/epayment");
                     },
                     child: new Row(
                       children: <Widget>[
