@@ -11,7 +11,7 @@ class MainLocalizations {
   static Map<String, Map<String, String>> _localizedValues = {
     'en': {
       'messages title': 'Messages',
-      'engine title': 'engine',
+      'academic title': 'academic',
       'calendar title': 'Calendar',
       'me title': 'Me',
       //Calendar
@@ -21,7 +21,7 @@ class MainLocalizations {
     },
     'zh': {
       'messages title': '消息',
-      'engine title': '引擎',
+      'academic title': '引擎',
       'calendar title': '日程',
       'me title': '我',
       //Calendar

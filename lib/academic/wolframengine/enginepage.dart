@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xmux/engine/wolframresult.dart';
+import 'package:xmux/academic/wolframengine/result.dart';
 import 'package:xmux/translate.dart';
 
 Color enginePageColor = Colors.orange;
@@ -31,7 +31,7 @@ class _EnginePageState extends State<EnginePage> {
                   image: new AssetImage('res/wolfram.png'),
                 ),
               ),
-              new Text("Search anything by powerful wolfram engine."),
+              new Text("Search anything by powerful wolfram academic."),
               new Row(
                 children: <Widget>[
                   new Flexible(
@@ -47,7 +47,7 @@ class _EnginePageState extends State<EnginePage> {
                     icon: new Icon(Icons.send,color: enginePageColor,),
                     onPressed: () {
                       if (_inputTextController.text.isEmpty)
-                        Navigator.of(context).pushNamed("/engine/constructor");
+                        Navigator.of(context).pushNamed("/wolframengine/constructor");
                       else
                         Navigator.of(context).push(new MaterialPageRoute<Null>(
                           builder: (BuildContext context) {
@@ -69,7 +69,7 @@ class _EnginePageState extends State<EnginePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(engineTitle+MainLocalizations.of(context).get("engine title")),
+        title: new Text(engineTitle+MainLocalizations.of(context).get("academic title")),
         backgroundColor: enginePageColor,
       ),
       body: buildWolframPage(),

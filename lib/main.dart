@@ -2,11 +2,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:xmux/config.dart';
-import 'package:xmux/tools/gpacalculator.dart';
+import 'package:xmux/academic/gpacalculator.dart';
 import 'package:xmux/init.dart';
-import 'package:xmux/engine/inputconstructor.dart';
+import 'package:xmux/academic/wolframengine/inputconstructor.dart';
 import 'package:xmux/homepage.dart';
-import 'package:xmux/identity/payment.dart';
+import 'package:xmux/payment.dart';
 import 'package:xmux/translate.dart';
 
 void main() {
@@ -26,10 +26,10 @@ void runMainApp() {
       home: new HomePage(),
       theme: defaultTheme,
       routes: <String, WidgetBuilder>{
-        "/engine/constructor": (BuildContext context) => new InputConstructor(),
+        "/wolframengine/constructor": (BuildContext context) => new InputConstructor(),
         "/epayment": (BuildContext context) =>
             new PaymentPage(globalCalendarState.paymentData),
-        "/gpa": (BuildContext context) => new GPACalculatorPage(),
+        "/acdemic/gpacalculator": (BuildContext context) => new GPACalculatorPage(),
       },
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,

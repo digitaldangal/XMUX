@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xmux/calendar/calendarpage.dart';
-import 'package:xmux/engine/enginepage.dart';
+import 'package:xmux/academic/wolframengine/enginepage.dart';
 import 'package:xmux/identity/me.dart';
 import 'package:xmux/message/messagepage.dart';
 import 'package:xmux/translate.dart';
@@ -26,15 +26,13 @@ class HomePageState extends State<HomePage> {
           ),
           new Offstage(
             offstage: _currentIndex != 1,
-            child: new EnginePage(),
+            child: new CalendarPage(),
           ),
           new Offstage(
             offstage: _currentIndex != 2,
             child: new TickerMode(
               enabled: _currentIndex == 2,
-              child: new Scaffold(
-                body: new CalendarPage(),
-              ),
+              child: new EnginePage(),
             ),
           ),
           new Offstage(
@@ -56,14 +54,14 @@ class HomePageState extends State<HomePage> {
             backgroundColor: Theme.of(context).primaryColor,
           ),
           new BottomNavigationBarItem(
-            title: new Text(MainLocalizations.of(context).get("engine title")),
-            icon: new Icon(Icons.explore),
-            backgroundColor: enginePageColor,
-          ),
-          new BottomNavigationBarItem(
             title: new Text(MainLocalizations.of(context).get("calendar title")),
             icon: new Icon(Icons.calendar_today),
             backgroundColor: Theme.of(context).primaryColor,
+          ),
+          new BottomNavigationBarItem(
+            title: new Text(MainLocalizations.of(context).get("academic title")),
+            icon: new Icon(Icons.explore),
+            backgroundColor: enginePageColor,
           ),
           new BottomNavigationBarItem(
             title: new Text(MainLocalizations.of(context).get("me title")),

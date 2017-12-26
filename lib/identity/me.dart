@@ -151,7 +151,7 @@ class MePageState extends State<MePage> {
                 ],
               ),
               onPressed: () {
-                Navigator.of(context).pushNamed("/gpa");
+                Navigator.of(context).pushNamed("/acdemic/gpacalculator");
               },
             ),
           ),
