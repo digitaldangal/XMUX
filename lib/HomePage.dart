@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xmux/academic/academicpage.dart';
 import 'package:xmux/calendar/calendarpage.dart';
+import 'package:xmux/config.dart';
 import 'package:xmux/drawer.dart';
 import 'package:xmux/events/actions.dart';
 import 'package:xmux/explore/explorepage.dart';
@@ -98,17 +99,25 @@ class HomePageState extends State<HomePage> {
         child: new Column(
           children: <Widget>[
             new DrawerHeader(
-                child: new CircleAvatar(
-              child: new Text("X"),
-              backgroundColor: Colors.black,
-            )),
-            new Container(
-              margin: const EdgeInsets.all(15.0),
-              child: new Text(
-                "We still need time to fix bug and build the release version. If you have any problems or suggestions please email us.\n\n Email: x@ctbeta.org",
-                textAlign: TextAlign.center,
+              child: new CircleAvatar(
+                radius: 50.0,
+                child: new Text(
+                  "X",
+                  style: new TextStyle(fontSize: 50.0),
+                ),
+                backgroundColor: Colors.black,
               ),
-            )
+            ),
+            new Expanded(
+              child: new Container(
+                margin: const EdgeInsets.all(15.0),
+                child: new Text(
+                  "We still need time to fix bug and build the release version. If you have any problems or suggestions please email us.\n\n Email: x@ctbeta.org",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            new Text("Version : " + AppInfo.version),
           ],
         ),
       ),

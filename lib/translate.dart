@@ -56,7 +56,7 @@ class MainLocalizations {
       'header/welcome': '您好，',
       'e-payment': ' E-Payment',
       'e-payment/login': '登陆 E-Payment',
-      'e-payment/login/content': '请在设置页绑定您的 E-Payment 密码。',
+      'e-payment/login/content': '请在设置页绑定您的\nE-Payment 密码。',
       'e-payment/login/go': '前往设置页',
     }
   };
@@ -132,5 +132,6 @@ class LoginLocalizationsDelegate
     return false;
   }
 
-  static LoginLocalizationsDelegate delegate = const LoginLocalizationsDelegate();
+  static LoginLocalizationsDelegate delegate =
+      const LoginLocalizationsDelegate();
 }

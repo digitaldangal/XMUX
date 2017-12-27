@@ -77,24 +77,27 @@ class MePageState extends State<MePage> {
                                     child: new IconButton(
                                       icon: new Icon(Icons.save),
                                       onPressed: () {
-                                        setState(() {
-                                          _isProcessing = true;
-                                        });
-                                        LoginHandler
-                                            .ePaymentAuth(
-                                                globalPersonalInfoState.id,
-                                                _ePaymentPasswordController
-                                                    .text)
-                                            .then((r) {
-                                          if (r.containsKey("error")) {
-                                            String _error = r["error"];
-                                            Scaffold.of(context).showSnackBar(
-                                                new SnackBar(
-                                                    content: new Text(
-                                                        "Error : $_error")));
-                                          } else
-                                            setState(() {});
-                                        });
+                                        if (_ePaymentPasswordController
+                                            .text.isNotEmpty) {
+                                          setState(() {
+                                            _isProcessing = true;
+                                          });
+                                          LoginHandler
+                                              .ePaymentAuth(
+                                                  globalPersonalInfoState.id,
+                                                  _ePaymentPasswordController
+                                                      .text)
+                                              .then((r) {
+                                            if (r.containsKey("error")) {
+                                              String _error = r["error"];
+                                              Scaffold.of(context).showSnackBar(
+                                                  new SnackBar(
+                                                      content: new Text(
+                                                          "Error : $_error")));
+                                            } else
+                                              setState(() {});
+                                          });
+                                        }
                                       },
                                     ),
                                   ),
