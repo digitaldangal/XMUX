@@ -3,7 +3,7 @@ import 'package:xmux/academic/academicpage.dart';
 import 'package:xmux/calendar/calendarpage.dart';
 import 'package:xmux/drawer.dart';
 import 'package:xmux/events/actions.dart';
-import 'package:xmux/explore.dart';
+import 'package:xmux/explore/explorepage.dart';
 import 'package:xmux/init.dart';
 import 'package:xmux/message/messagepage.dart';
 import 'package:xmux/translate.dart';

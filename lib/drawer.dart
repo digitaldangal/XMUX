@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:xmux/config.dart';
 import 'package:xmux/init.dart';
 import 'package:xmux/translate.dart';
 
@@ -13,27 +10,6 @@ class DrawerPage extends StatefulWidget {
 }
 
 class DrawerPageState extends State<DrawerPage> {
-  Future _loginEPayment(BuildContext context) async {
-    showDialog<String>(
-      context: context,
-      child: new AlertDialog(
-        title: const Text('Login EPayment'),
-        content: new Text(
-          "enter",
-        ),
-        actions: <Widget>[
-          new FlatButton(child: const Text('DISAGREE'), onPressed: () {}),
-          new FlatButton(
-            child: const Text('AGREE'),
-            onPressed: () {
-              Navigator.pop(context, "hhh");
-            },
-          )
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return new SizedBox(
@@ -76,7 +52,22 @@ class DrawerPageState extends State<DrawerPage> {
                       if (globalPersonalInfoState.ePaymentPassword != null)
                         Navigator.popAndPushNamed(context, "/epayment");
                       else
-                        _loginEPayment(context);
+                        showDialog(
+                          context: context,
+                          child: new AlertDialog(
+                            title: const Text('Login E-Payment'),
+                            content:
+                                new Text("Go settings and login e-payment!"),
+                            actions: <Widget>[
+                              new FlatButton(
+                                child: const Text('Go Settings'),
+                                onPressed: () {
+                                  Navigator.popAndPushNamed(context, "/me");
+                                },
+                              ),
+                            ],
+                          ),
+                        );
                     },
                     child: new Row(
                       children: <Widget>[

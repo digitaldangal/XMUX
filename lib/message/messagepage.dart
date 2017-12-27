@@ -76,33 +76,10 @@ class MessagePageState extends State<MessagePage> {
 
   String email, pass;
 
-  Future<bool> _ensureLoggedIn() async {
-    if (email == null) {
-      Scaffold
-          .of(context)
-          .showSnackBar(new SnackBar(content: new Text("Please Log in !")));
-      return false;
-    }
-    if (await auth.currentUser() == null) {
-      user =
-          await auth.signInWithEmailAndPassword(email: email, password: pass);
-      setState(() {
-        reference =
-            FirebaseDatabase.instance.reference().child('messages_beta');
-      });
-      return true;
-    }
-    reference = FirebaseDatabase.instance.reference().child('messages_beta');
-    if (user == null) user = await auth.currentUser();
-    return true;
-  }
-
   @override
   Future initState() async {
-    email = globalPersonalInfoState.campusId + "@xmu.edu.my";
-    pass = globalPersonalInfoState.password;
-    user = await auth.signInWithEmailAndPassword(email: email, password: pass);
-    await _ensureLoggedIn();
+    user = firebaseUser;
+    reference = FirebaseDatabase.instance.reference().child('messages_beta');
   }
 
   @override
@@ -160,16 +137,14 @@ class MessagePageState extends State<MessagePage> {
               child: new IconButton(
                   icon: new Icon(Icons.photo_camera),
                   onPressed: () async {
-                    if (await _ensureLoggedIn()) {
-                      File imageFile = await ImagePicker.pickImage();
-                      int random = new Random().nextInt(100000);
-                      StorageReference ref = FirebaseStorage.instance
-                          .ref()
-                          .child("image_$random.jpg");
-                      StorageUploadTask uploadTask = ref.put(imageFile);
-                      Uri downloadUrl = (await uploadTask.future).downloadUrl;
-                      _sendMessage(imageUrl: downloadUrl.toString());
-                    }
+                    File imageFile = await ImagePicker.pickImage();
+                    int random = new Random().nextInt(100000);
+                    StorageReference ref = FirebaseStorage.instance
+                        .ref()
+                        .child("image_$random.jpg");
+                    StorageUploadTask uploadTask = ref.put(imageFile);
+                    Uri downloadUrl = (await uploadTask.future).downloadUrl;
+                    _sendMessage(imageUrl: downloadUrl.toString());
                   }),
             ),
             new Flexible(
@@ -213,7 +188,7 @@ class MessagePageState extends State<MessagePage> {
     setState(() {
       _isComposing = false;
     });
-    if (await _ensureLoggedIn()) _sendMessage(text: text);
+    _sendMessage(text: text);
   }
 
   void _sendMessage({String text, String imageUrl}) {

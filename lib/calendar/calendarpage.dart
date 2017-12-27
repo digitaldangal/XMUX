@@ -15,7 +15,7 @@ class CalendarPage extends StatefulWidget {
   static Future updateCalendarData() async {
     var response =
         await http.post(BackendApiConfig.address + "/refresh", body: {
-      "id": globalPersonalInfoState.campusId,
+      "id": globalPersonalInfoState.id,
       "cpass": globalPersonalInfoState.password,
       "epass": globalPersonalInfoState.ePaymentPassword == null
           ? ""

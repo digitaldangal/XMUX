@@ -3,14 +3,17 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:event_bus/event_bus.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/identity/login.dart';
+import 'package:xmux/identity/loginhandler.dart';
 
-final FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
+final FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
+FirebaseUser firebaseUser;
 PersonalInfoState globalPersonalInfoState = new PersonalInfoState();
 CalendarState globalCalendarState = new CalendarState();
 EventBus actionEventBus = new EventBus();
@@ -38,7 +41,7 @@ Future<bool> init() async {
     return false;
   }
 
-  globalPersonalInfoState.campusId = loginInfoJson["campusId"];
+  globalPersonalInfoState.id = loginInfoJson["campusId"];
   globalPersonalInfoState.password = loginInfoJson["password"];
   globalPersonalInfoState.ePaymentPassword = loginInfoJson["ePaymentPassword"];
   globalPersonalInfoState.fullName = resJson["moodle"]["fullname"];
@@ -59,18 +62,18 @@ void runLoginPage() {
 }
 
 class PersonalInfoState {
-  String campusId, password, ePaymentPassword;
+  String id, password, ePaymentPassword;
   String fullName, avatarURL;
 
   PersonalInfoState(
-      {this.campusId,
+      {this.id,
       this.password,
       this.ePaymentPassword,
       this.fullName,
       this.avatarURL});
 
   void clear() {
-    this.campusId = null;
+    this.id = null;
     this.password = null;
     this.ePaymentPassword = null;
     this.fullName = null;
