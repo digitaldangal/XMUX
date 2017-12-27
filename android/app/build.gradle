@@ -32,8 +32,8 @@ android {
         applicationId "org.ctbeta.xmux.xmux"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 48
-        versionName "1.0.13_nightly"
+        versionCode 49
+        versionName "1.0.14_nightly"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 

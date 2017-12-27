@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:xmux/init.dart';
 import 'package:xmux/translate.dart';
@@ -10,6 +12,26 @@ class DrawerPage extends StatefulWidget {
 }
 
 class DrawerPageState extends State<DrawerPage> {
+  Future _loginEPayment() async {
+    showDialog(
+      context: context,
+      child: new AlertDialog(
+        title: new Text(MainLocalizations.of(context).get("e-payment/login")),
+        content: new Text(
+            MainLocalizations.of(context).get("e-payment/login/content")),
+        actions: <Widget>[
+          new FlatButton(
+            child: new Text(
+                MainLocalizations.of(context).get("e-payment/login/go")),
+            onPressed: () {
+              Navigator.popAndPushNamed(context, "/me");
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return new SizedBox(
@@ -52,22 +74,7 @@ class DrawerPageState extends State<DrawerPage> {
                       if (globalPersonalInfoState.ePaymentPassword != null)
                         Navigator.popAndPushNamed(context, "/epayment");
                       else
-                        showDialog(
-                          context: context,
-                          child: new AlertDialog(
-                            title: const Text('Login E-Payment'),
-                            content:
-                                new Text("Go settings and login e-payment!"),
-                            actions: <Widget>[
-                              new FlatButton(
-                                child: const Text('Go Settings'),
-                                onPressed: () {
-                                  Navigator.popAndPushNamed(context, "/me");
-                                },
-                              ),
-                            ],
-                          ),
-                        );
+                        _loginEPayment();
                     },
                     child: new Row(
                       children: <Widget>[
@@ -85,60 +92,3 @@ class DrawerPageState extends State<DrawerPage> {
     );
   }
 }
-
-//class EPaymentLoginManager {
-//  final TextEditingController _ePaymentPasswordController =
-//      new TextEditingController();
-//  Future<bool> _loginEPayment() async {
-//    var response = await http.post(BackendApiConfig.address + "/bill", body: {
-//      "id": globalPersonalInfoState.campusId,
-//      "pass": _ePaymentPasswordController.text,
-//    });
-//    if (response.statusCode >= 400) {
-//      Scaffold
-//          .of(context)
-//          .showSnackBar(new SnackBar(content: new Text("Login Failed")));
-//      setState(() {
-//        _isProcessing = false;
-//      });
-//      return false;
-//    }
-//    Map resJson = JSON.decode(response.body);
-//
-//    globalPersonalInfoState.ePaymentPassword = _ePaymentPasswordController.text;
-//    _ePaymentPasswordController.clear();
-//    globalCalendarState.paymentData = resJson;
-//
-//    _saveData(JSON.encode({
-//      "campusId": globalPersonalInfoState.campusId,
-//      "password": globalPersonalInfoState.password,
-//      "ePaymentPassword": globalPersonalInfoState.ePaymentPassword,
-//    }));
-//    return true;
-//  }
-//
-//  Future<Null> _saveData(String loginInfo) async {
-//    String dir = (await getApplicationDocumentsDirectory()).path;
-//    await (new File('$dir/login.dat')).writeAsString(loginInfo);
-//  }
-//
-//  void _handleSubmitted() {
-//    if (_ePaymentPasswordController.text.isEmpty)
-//      Scaffold.of(context).showSnackBar(
-//          new SnackBar(content: new Text("Format Error. Please Check.")));
-//    else {
-//      setState(() {
-//        _isProcessing = true;
-//      });
-//      _loginEPayment().then((r) {
-//        if (r)
-//          Scaffold
-//              .of(context)
-//              .showSnackBar(new SnackBar(content: new Text("Success !")));
-//        setState(() {
-//          _isProcessing = false;
-//        });
-//      });
-//    }
-//  }
-//}

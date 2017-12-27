@@ -17,12 +17,12 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   int _currentIndex = 0;
-  GlobalKey <ScaffoldState> _scaffoldKey = new GlobalKey();
+  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    actionEventBus.on(OpenDrawer).listen((OpenDrawer a){
+    actionEventBus.on(OpenDrawer).listen((OpenDrawer a) {
       if (a.openDrawer) _scaffoldKey.currentState.openDrawer();
     });
   }
@@ -62,17 +62,20 @@ class HomePageState extends State<HomePage> {
       bottomNavigationBar: new BottomNavigationBar(
         items: [
           new BottomNavigationBarItem(
-            title: new Text(MainLocalizations.of(context).get("messages title")),
+            title:
+                new Text(MainLocalizations.of(context).get("messages title")),
             icon: new Icon(Icons.comment),
             backgroundColor: Theme.of(context).primaryColor,
           ),
           new BottomNavigationBarItem(
-            title: new Text(MainLocalizations.of(context).get("calendar title")),
+            title:
+                new Text(MainLocalizations.of(context).get("calendar title")),
             icon: new Icon(Icons.calendar_today),
             backgroundColor: Theme.of(context).primaryColor,
           ),
           new BottomNavigationBarItem(
-            title: new Text(MainLocalizations.of(context).get("academic title")),
+            title:
+                new Text(MainLocalizations.of(context).get("academic title")),
             icon: new Icon(Icons.explore),
             backgroundColor: Colors.lightBlue,
           ),
