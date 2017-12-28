@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
@@ -24,6 +25,7 @@ class MePageState extends State<MePage> {
   Future<Null> _deleteData() async {
     _isDeleteing = true;
     Navigator.pop(context);
+    FirebaseAuth.instance.signOut();
     String dir = (await getApplicationDocumentsDirectory()).path;
     await (new File('$dir/login.dat')).delete();
     globalPersonalInfoState.clear();

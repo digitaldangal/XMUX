@@ -36,6 +36,7 @@ Future<bool> init() async {
   });
   Map resJson = JSON.decode(response.body);
   if (resJson.containsKey("error")) {
+    FirebaseAuth.instance.signOut();
     runLoginPage();
     return false;
   }
@@ -49,6 +50,8 @@ Future<bool> init() async {
   globalCalendarState.examsData = resJson["exam"];
   globalCalendarState.assignmentData = resJson["assignment"];
   globalCalendarState.paymentData = resJson["bill"];
+
+  firebaseUser = await FirebaseAuth.instance.currentUser();
 
   return true;
 }
