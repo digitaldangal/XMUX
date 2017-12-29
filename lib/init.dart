@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/identity/login.dart';
+import 'package:xmux/identity/loginhandler.dart';
 
 final FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
 FirebaseUser firebaseUser;
@@ -51,7 +52,8 @@ Future<bool> init() async {
   globalCalendarState.assignmentData = resJson["assignment"];
   globalCalendarState.paymentData = resJson["bill"];
 
-  firebaseUser = await FirebaseAuth.instance.currentUser();
+  firebaseUser = await FirebaseAuth.instance.currentUser() ??
+      await LoginHandler.firebaseLogin();
 
   return true;
 }
