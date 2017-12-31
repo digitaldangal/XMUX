@@ -10,6 +10,7 @@ class MainLocalizations {
 
   static Map<String, Map<String, String>> _localizedValues = {
     'en': {
+      //HomePage
       'messages title': 'Messages',
       'calendar title': 'Calendar',
       'academic title': 'Academic',
@@ -34,8 +35,11 @@ class MainLocalizations {
       'e-payment/login/content':
           'Please go to settings and save your E-Payment Password.',
       'e-payment/login/go': 'Go Settings',
+      //explore
+      'lostandfound':'Lost and Found',
     },
     'zh': {
+      //HomePage
       'messages title': '消息',
       'calendar title': '日程',
       'academic title': '学术',
@@ -58,6 +62,8 @@ class MainLocalizations {
       'e-payment/login': '登陆 E-Payment',
       'e-payment/login/content': '请在设置页绑定您的\nE-Payment 密码。',
       'e-payment/login/go': '前往设置页',
+      //explore
+      'lostandfound':'失物招领',
     }
   };
 
@@ -100,12 +106,12 @@ class LoginLocalizations {
 
   static Map<String, Map<String, String>> _localizedValues = {
     'en': {
-      'signin/title':'Sign in to XMUX',
-      'signin':'Sign in',
+      'signin/title': 'Sign in to XMUX',
+      'signin': 'Sign in',
     },
     'zh': {
-      'signin/title':'登陆到XMUX',
-      'signin':'登陆',
+      'signin/title': '登陆到XMUX',
+      'signin': '登陆',
     }
   };
 

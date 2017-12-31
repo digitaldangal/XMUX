@@ -33,7 +33,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 54
-        versionName "1.0.18_Beta"
+        versionName "1.0.19_Beta"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
