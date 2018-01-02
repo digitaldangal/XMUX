@@ -4,7 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:xmux/academic/gpacalculator.dart';
 import 'package:xmux/academic/wolframengine/inputconstructor.dart';
 import 'package:xmux/config.dart';
-import 'package:xmux/explore/lostandfound.dart';
+import 'package:xmux/explore/lostandfound/lostandfoundpage.dart';
 import 'package:xmux/identity/me.dart';
 import 'package:xmux/init.dart';
 import 'package:xmux/homepage.dart';
