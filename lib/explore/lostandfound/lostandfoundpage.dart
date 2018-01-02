@@ -3,6 +3,7 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/explore/lostandfound/lostandfoundcreate.dart';
+import 'package:xmux/explore/lostandfound/lostandfounddetail.dart';
 import 'package:xmux/init.dart';
 import 'package:xmux/translate.dart';
 
@@ -45,8 +46,9 @@ class LostAndFoundPageState extends State<LostAndFoundPage> {
             'time': new DateTime.now().toIso8601String(),
             'senderName': firebaseUser.displayName,
             'senderPhotoUrl': firebaseUser.photoUrl,
-            'location': 'where',
-            'details': 'details',
+            'location': 'A5#G1',
+            'brief': 'credit card',
+            'details': 'here are some details',
           });
         },
         child: new Icon(
@@ -70,7 +72,13 @@ class LostAndFoundCard extends StatelessWidget {
     return new SizeTransition(
       sizeFactor: new CurvedAnimation(parent: animation, curve: Curves.easeOut),
       child: new FlatButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(
+            new MaterialPageRoute(builder: (BuildContext context) {
+              return new LostAndFoundDetailPage(dataSnapshot);
+            }),
+          );
+        },
         child: new Container(
           margin: const EdgeInsets.symmetric(vertical: 10.0),
           child: new Row(
@@ -85,11 +93,14 @@ class LostAndFoundCard extends StatelessWidget {
                 child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    new Text(dataSnapshot.value['senderName'] +
-                        " " +
-                        DateTime.parse(dataSnapshot.value['time']).toString()),
-                    new Text(dataSnapshot.value['location']),
-                    new Text(dataSnapshot.value['details']),
+                    new Text(
+                      dataSnapshot.value['senderName'] +
+                          " " +
+                          DateTime.parse(dataSnapshot.value['time']).toString(),
+                      style: Theme.of(context).textTheme.subhead,
+                    ),
+                    new Text("Location : "+dataSnapshot.value['location']),
+                    new Text(dataSnapshot.value['brief']),
                   ],
                 ),
               ),
