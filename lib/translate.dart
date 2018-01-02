@@ -36,7 +36,8 @@ class MainLocalizations {
           'Please go to settings and save your E-Payment Password.',
       'e-payment/login/go': 'Go Settings',
       //explore
-      'lostandfound':'Lost and Found',
+      'lostandfound': 'Lost and Found',
+      'lostandfound/create': 'Create new L&F card',
     },
     'zh': {
       //HomePage
@@ -63,7 +64,8 @@ class MainLocalizations {
       'e-payment/login/content': '请在设置页绑定您的\nE-Payment 密码。',
       'e-payment/login/go': '前往设置页',
       //explore
-      'lostandfound':'失物招领',
+      'lostandfound': '失物招领',
+      'lostandfound/create': '创建新的失物招领卡片',
     }
   };
 
