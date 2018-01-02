@@ -38,6 +38,16 @@ class MainLocalizations {
       //explore
       'lostandfound': 'Lost and Found',
       'lostandfound/create': 'Create new L&F card',
+      'lostandfound/location': 'Location : ',
+      'lostandfound/things': 'Things : ',
+      'lostandfound/lost': 'Lost',
+      'lostandfound/found': 'Found',
+      'lostandfound/details': 'Details',
+      'lostandfound/description': 'Description',
+      'lostandfound/time': 'Time : ',
+      'lostandfound/hour': ' H',
+      'lostandfound/min': ' D',
+      'lostandfound/delete': 'Delete',
     },
     'zh': {
       //HomePage
@@ -66,6 +76,16 @@ class MainLocalizations {
       //explore
       'lostandfound': '失物招领',
       'lostandfound/create': '创建新的失物招领卡片',
+      'lostandfound/location': '地点：',
+      'lostandfound/things': '物件：',
+      'lostandfound/lost': '遗失',
+      'lostandfound/found': '拾到',
+      'lostandfound/details': '失误招领详情',
+      'lostandfound/description': '描述',
+      'lostandfound/time': '时间：',
+      'lostandfound/hour': ' 小时',
+      'lostandfound/min': ' 天',
+      'lostandfound/delete': '删除',
     }
   };
 

@@ -22,7 +22,7 @@ class LostAndFoundPageState extends State<LostAndFoundPage> {
       body: new FirebaseAnimatedList(
         query: FirebaseDatabase.instance.reference().child('lostandfound'),
         sort: (a, b) => b.key.compareTo(a.key),
-        padding: new EdgeInsets.all(8.0),
+        padding: new EdgeInsets.all(3.0),
         reverse: false,
         itemBuilder:
             (_, DataSnapshot snapshot, Animation<double> animation, int index) {
@@ -43,12 +43,14 @@ class LostAndFoundPageState extends State<LostAndFoundPage> {
               .push()
               .set({
             'uid': firebaseUser.uid,
-            'time': new DateTime.now().toIso8601String(),
             'senderName': firebaseUser.displayName,
             'senderPhotoUrl': firebaseUser.photoUrl,
-            'location': 'A5#G1',
+            'time': new DateTime.now().toIso8601String(),
+            'location_brief': 'A5#G1',
+            'location': 'A5#G1 3th row',
             'brief': 'credit card',
             'details': 'here are some details',
+            'isLost':false,
           });
         },
         child: new Icon(
@@ -80,28 +82,85 @@ class LostAndFoundCard extends StatelessWidget {
           );
         },
         child: new Container(
-          margin: const EdgeInsets.symmetric(vertical: 10.0),
+          margin: const EdgeInsets.symmetric(vertical: 8.0),
           child: new Row(
             children: <Widget>[
               new Container(
                 margin: const EdgeInsets.only(right: 16.0),
                 child: new CircleAvatar(
-                    backgroundImage:
-                        new NetworkImage(dataSnapshot.value['senderPhotoUrl'])),
+                  backgroundImage:
+                      new NetworkImage(dataSnapshot.value['senderPhotoUrl']),
+                  radius: 25.0,
+                ),
               ),
               new Expanded(
                 child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     new Text(
-                      dataSnapshot.value['senderName'] +
-                          " " +
-                          DateTime.parse(dataSnapshot.value['time']).toString(),
+                      dataSnapshot.value['senderName'],
                       style: Theme.of(context).textTheme.subhead,
                     ),
-                    new Text("Location : "+dataSnapshot.value['location']),
-                    new Text(dataSnapshot.value['brief']),
+                    new Divider(
+                      height: 5.0,
+                      color: Theme.of(context).canvasColor,
+                    ),
+                    new Text(
+                      MainLocalizations
+                              .of(context)
+                              .get("lostandfound/location") +
+                          dataSnapshot.value['location_brief'],
+                      style: Theme.of(context).textTheme.caption,
+                    ),
+                    new Text(
+                      MainLocalizations.of(context).get("lostandfound/things") +
+                          dataSnapshot.value['brief'],
+                      style: Theme.of(context).textTheme.caption,
+                    ),
                   ],
+                ),
+              ),
+              new Card(
+                child: new Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: new Column(
+                    children: <Widget>[
+                      new Text(
+                        dataSnapshot.value['isLost']
+                            ? MainLocalizations
+                                .of(context)
+                                .get("lostandfound/lost")
+                            : MainLocalizations
+                                .of(context)
+                                .get("lostandfound/found"),
+                        style: Theme.of(context).textTheme.subhead,
+                      ),
+                      new Text(
+                        new DateTime.now()
+                                    .difference(DateTime
+                                        .parse(dataSnapshot.value['time']))
+                                    .inDays ==
+                                0
+                            ? new DateTime.now()
+                                    .difference(DateTime
+                                        .parse(dataSnapshot.value['time']))
+                                    .inHours
+                                    .toString() +
+                                MainLocalizations
+                                    .of(context)
+                                    .get("lostandfound/hour")
+                            : new DateTime.now()
+                                    .difference(DateTime
+                                        .parse(dataSnapshot.value['time']))
+                                    .inDays
+                                    .toString() +
+                                MainLocalizations
+                                    .of(context)
+                                    .get("lostandfound/day"),
+                        style: Theme.of(context).textTheme.subhead,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
