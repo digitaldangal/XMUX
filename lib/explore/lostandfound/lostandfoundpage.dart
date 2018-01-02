@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/explore/lostandfound/lostandfoundcreate.dart';
 import 'package:xmux/explore/lostandfound/lostandfounddetail.dart';
-import 'package:xmux/init.dart';
 import 'package:xmux/translate.dart';
 
 class LostAndFoundPage extends StatefulWidget {
@@ -32,32 +31,17 @@ class LostAndFoundPageState extends State<LostAndFoundPage> {
       ),
       floatingActionButton: new FloatingActionButton(
         onPressed: () {
-//          Navigator.of(context).push(
-//            new MaterialPageRoute(builder: (BuildContext context) {
-//              return new LostAndFoundCreatePage();
-//            }),
-//          );
-          FirebaseDatabase.instance
-              .reference()
-              .child('lostandfound')
-              .push()
-              .set({
-            'uid': firebaseUser.uid,
-            'senderName': firebaseUser.displayName,
-            'senderPhotoUrl': firebaseUser.photoUrl,
-            'time': new DateTime.now().toIso8601String(),
-            'location_brief': 'A5#G1',
-            'location': 'A5#G1 3th row',
-            'brief': 'credit card',
-            'details': 'here are some details',
-            'isLost':false,
-          });
+          Navigator.of(context).push(
+            new MaterialPageRoute(builder: (BuildContext context) {
+              return new LostAndFoundCreatePage();
+            }),
+          );
         },
         child: new Icon(
           Icons.add,
           color: Colors.white,
         ),
-        tooltip: "Create new",
+        tooltip: "New",
       ),
     );
   }

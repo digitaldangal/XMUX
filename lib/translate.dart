@@ -37,7 +37,6 @@ class MainLocalizations {
       'e-payment/login/go': 'Go Settings',
       //explore
       'lostandfound': 'Lost and Found',
-      'lostandfound/create': 'Create new L&F card',
       'lostandfound/location': 'Location : ',
       'lostandfound/things': 'Things : ',
       'lostandfound/lost': 'Lost',
@@ -48,6 +47,8 @@ class MainLocalizations {
       'lostandfound/hour': ' H',
       'lostandfound/min': ' D',
       'lostandfound/delete': 'Delete',
+      'lostandfound/create': 'Create new L&F card',
+      'lostandfound/create/submit': 'Create',
     },
     'zh': {
       //HomePage
@@ -75,7 +76,6 @@ class MainLocalizations {
       'e-payment/login/go': '前往设置页',
       //explore
       'lostandfound': '失物招领',
-      'lostandfound/create': '创建新的失物招领卡片',
       'lostandfound/location': '地点：',
       'lostandfound/things': '物件：',
       'lostandfound/lost': '遗失',
@@ -86,6 +86,8 @@ class MainLocalizations {
       'lostandfound/hour': ' 小时',
       'lostandfound/min': ' 天',
       'lostandfound/delete': '删除',
+      'lostandfound/create': '创建新的失物招领卡片',
+      'lostandfound/create/submit': '创建',
     }
   };
 

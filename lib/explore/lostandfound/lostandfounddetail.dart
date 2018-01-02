@@ -12,9 +12,8 @@ class LostAndFoundDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(MainLocalizations
-            .of(context)
-            .get("lostandfound/details")),
+        title:
+            new Text(MainLocalizations.of(context).get("lostandfound/details")),
       ),
       body: new ListView(
         children: <Widget>[
@@ -57,8 +56,8 @@ class LostAndFoundDetailPage extends StatelessWidget {
                         ),
                         new Divider(),
                         new Text(MainLocalizations
-                            .of(context)
-                            .get("lostandfound/time") +
+                                .of(context)
+                                .get("lostandfound/time") +
                             DateTime
                                 .parse(dataSnapshot.value['time'])
                                 .toString()
@@ -68,8 +67,8 @@ class LostAndFoundDetailPage extends StatelessWidget {
                                 .get("lostandfound/location") +
                             dataSnapshot.value['location']),
                         new Text(MainLocalizations
-                            .of(context)
-                            .get("lostandfound/things") +
+                                .of(context)
+                                .get("lostandfound/things") +
                             dataSnapshot.value['brief']),
                         new Divider(),
                         new Text(dataSnapshot.value['details']),
