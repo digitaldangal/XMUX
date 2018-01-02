@@ -51,7 +51,7 @@ class _ExplorePageState extends State<ExplorePage> {
                 children: <Widget>[
                   new Icon(Icons.find_in_page),
                   new Text(
-                    "  Lost and Found",
+                    " " + MainLocalizations.of(context).get("lostandfound"),
                     style: Theme.of(context).textTheme.subhead,
                   )
                 ],
