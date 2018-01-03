@@ -46,6 +46,10 @@ class LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
       appBar: new AppBar(
         title:
             new Text(MainLocalizations.of(context).get("lostandfound/create")),
+        actions: <Widget>[
+          new IconButton(
+              icon: new Icon(Icons.add), onPressed: _handleSubmission),
+        ],
       ),
       body: new ListView(
         padding: const EdgeInsets.all(15.0),
