@@ -12,8 +12,7 @@ class LostAndFoundCreatePage extends StatefulWidget {
 }
 
 class _LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
-  bool _isFirst = true;
-  String _lostFoundSelection = 'Lost';
+  bool _isLost = true;
   DateTime _date = new DateTime.now();
   TimeOfDay _timeOfDay = new TimeOfDay(
       hour: new DateTime.now().hour, minute: new DateTime.now().minute);
@@ -24,14 +23,13 @@ class _LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
   final TextEditingController _locationCtrler = new TextEditingController();
   final TextEditingController _detailCtrler = new TextEditingController();
 
-  Future _handleSubmission() async {
+  Future _handleSubmission(BuildContext context) async {
     if (_briefLocationCtrler.text.isEmpty || _thingsCtrler.text.isEmpty) {
       Scaffold
           .of(context)
           .showSnackBar(new SnackBar(content: new Text("Format Error.")));
       return;
     }
-
     Navigator.pop(context);
     FirebaseDatabase.instance.reference().child('lostandfound').push().set({
       'uid': firebaseUser.uid,
@@ -44,25 +42,24 @@ class _LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
       'location': _locationCtrler.text,
       'brief': _thingsCtrler.text,
       'details': _detailCtrler.text,
-      'isLost': _lostFoundSelection ==
-          MainLocalizations.of(context).get("lostandfound/lost"),
+      'isLost': _isLost,
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_isFirst) {
-      _lostFoundSelection =
-          MainLocalizations.of(context).get("lostandfound/lost");
-      _isFirst = false;
-    }
     return new Scaffold(
       appBar: new AppBar(
         title:
             new Text(MainLocalizations.of(context).get("lostandfound/create")),
         actions: <Widget>[
-          new IconButton(
-              icon: new Icon(Icons.done), onPressed: _handleSubmission),
+          new Builder(builder: (BuildContext context) {
+            return new IconButton(
+                icon: new Icon(Icons.done),
+                onPressed: () {
+                  _handleSubmission(context);
+                });
+          }),
         ],
       ),
       body: new ListView(
@@ -72,19 +69,22 @@ class _LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
             title: new Text(MainLocalizations
                 .of(context)
                 .get("lostandfound/create/lostorfound")),
-            trailing: new DropdownButton<String>(
-              value: _lostFoundSelection,
-              onChanged: (String newValue) {
+            trailing: new DropdownButton<bool>(
+              value: _isLost,
+              onChanged: (bool newValue) {
                 setState(() {
-                  _lostFoundSelection = newValue;
+                  _isLost = newValue;
                 });
               },
               items: [
                 MainLocalizations.of(context).get("lostandfound/lost"),
                 MainLocalizations.of(context).get("lostandfound/found")
               ].map((String value) {
-                return new DropdownMenuItem<String>(
-                  value: value,
+                return new DropdownMenuItem<bool>(
+                  value: value ==
+                          MainLocalizations.of(context).get("lostandfound/lost")
+                      ? true
+                      : false,
                   child: new Text(value),
                 );
               }).toList(),
