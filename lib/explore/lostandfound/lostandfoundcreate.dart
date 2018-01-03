@@ -8,10 +8,11 @@ import 'package:xmux/translate.dart';
 
 class LostAndFoundCreatePage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new LostAndFoundCreatePageState();
+  State<StatefulWidget> createState() => new _LostAndFoundCreatePageState();
 }
 
-class LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
+class _LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
+  bool _isFirst = true;
   String _lostFoundSelection = 'Lost';
   DateTime _date = new DateTime.now();
   TimeOfDay _timeOfDay = new TimeOfDay(
@@ -24,6 +25,13 @@ class LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
   final TextEditingController _detailCtrler = new TextEditingController();
 
   Future _handleSubmission() async {
+    if (_briefLocationCtrler.text.isEmpty || _thingsCtrler.text.isEmpty) {
+      Scaffold
+          .of(context)
+          .showSnackBar(new SnackBar(content: new Text("Format Error.")));
+      return;
+    }
+
     Navigator.pop(context);
     FirebaseDatabase.instance.reference().child('lostandfound').push().set({
       'uid': firebaseUser.uid,
@@ -36,35 +44,45 @@ class LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
       'location': _locationCtrler.text,
       'brief': _thingsCtrler.text,
       'details': _detailCtrler.text,
-      'isLost': _lostFoundSelection == 'Lost',
+      'isLost': _lostFoundSelection ==
+          MainLocalizations.of(context).get("lostandfound/lost"),
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_isFirst) {
+      _lostFoundSelection =
+          MainLocalizations.of(context).get("lostandfound/lost");
+      _isFirst = false;
+    }
     return new Scaffold(
       appBar: new AppBar(
         title:
             new Text(MainLocalizations.of(context).get("lostandfound/create")),
         actions: <Widget>[
           new IconButton(
-              icon: new Icon(Icons.add), onPressed: _handleSubmission),
+              icon: new Icon(Icons.done), onPressed: _handleSubmission),
         ],
       ),
       body: new ListView(
         padding: const EdgeInsets.all(15.0),
         children: <Widget>[
           new ListTile(
-            title: new Text("Lost or Found ?"),
+            title: new Text(MainLocalizations
+                .of(context)
+                .get("lostandfound/create/lostorfound")),
             trailing: new DropdownButton<String>(
               value: _lostFoundSelection,
-              isDense: true,
               onChanged: (String newValue) {
                 setState(() {
                   _lostFoundSelection = newValue;
                 });
               },
-              items: ['Lost', 'Found'].map((String value) {
+              items: [
+                MainLocalizations.of(context).get("lostandfound/lost"),
+                MainLocalizations.of(context).get("lostandfound/found")
+              ].map((String value) {
                 return new DropdownMenuItem<String>(
                   value: value,
                   child: new Text(value),
@@ -78,8 +96,11 @@ class LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
                 flex: 1,
                 child: new TextField(
                   controller: _briefLocationCtrler,
-                  decoration: const InputDecoration(
-                    labelText: 'Brief Location',
+                  maxLength: 20,
+                  decoration: new InputDecoration(
+                    labelText: MainLocalizations
+                        .of(context)
+                        .get("lostandfound/create/brieflocation"),
                   ),
                   style: Theme.of(context).textTheme.body1,
                 ),
@@ -89,8 +110,11 @@ class LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
                 flex: 1,
                 child: new TextField(
                   controller: _thingsCtrler,
-                  decoration: const InputDecoration(
-                    labelText: 'Things',
+                  maxLength: 15,
+                  decoration: new InputDecoration(
+                    labelText: MainLocalizations
+                        .of(context)
+                        .get("lostandfound/create/things"),
                   ),
                   style: Theme.of(context).textTheme.body1,
                 ),
@@ -98,7 +122,8 @@ class LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
             ],
           ),
           new _DateTimePicker(
-            labelText: 'Time',
+            labelText:
+                MainLocalizations.of(context).get("lostandfound/create/time"),
             selectedDate: _date,
             selectedTime: _timeOfDay,
             selectDate: (DateTime date) {
@@ -114,16 +139,20 @@ class LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
           ),
           new TextField(
             controller: _locationCtrler,
-            decoration: const InputDecoration(
-              labelText: 'Location',
+            decoration: new InputDecoration(
+              labelText: MainLocalizations
+                  .of(context)
+                  .get("lostandfound/create/location"),
             ),
             style: Theme.of(context).textTheme.body1,
           ),
           new TextField(
             controller: _detailCtrler,
             maxLines: 5,
-            decoration: const InputDecoration(
-              labelText: 'Details',
+            decoration: new InputDecoration(
+              labelText: MainLocalizations
+                  .of(context)
+                  .get("lostandfound/create/detail"),
             ),
             style: Theme.of(context).textTheme.body1,
           ),
@@ -131,21 +160,6 @@ class LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
             height: 10.0,
             color: Theme.of(context).canvasColor,
           ),
-          new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new RaisedButton(
-                color: Theme.of(context).canvasColor,
-                onPressed: _handleSubmission,
-                child: new Text(
-                  MainLocalizations
-                      .of(context)
-                      .get("lostandfound/create/submit"),
-                  style: Theme.of(context).textTheme.button,
-                ),
-              ),
-            ],
-          )
         ],
       ),
     );
