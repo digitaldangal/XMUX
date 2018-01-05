@@ -57,6 +57,34 @@ class _ExplorePageState extends State<ExplorePage> {
                 ],
               ),
             ),
+            new FlatButton(
+              onPressed: () {
+                Scaffold.of(context).showSnackBar(new SnackBar(content: new Text("Coming soon...")));
+              },
+              child: new Row(
+                children: <Widget>[
+                  new Icon(Icons.room_service),
+                  new Text(
+                    " " + "Room reservation",
+                    style: Theme.of(context).textTheme.subhead,
+                  )
+                ],
+              ),
+            ),
+            new FlatButton(
+              onPressed: () {
+                Scaffold.of(context).showSnackBar(new SnackBar(content: new Text("Coming soon...")));
+              },
+              child: new Row(
+                children: <Widget>[
+                  new Icon(Icons.search),
+                  new Text(
+                    " " + "Book Search",
+                    style: Theme.of(context).textTheme.subhead,
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),

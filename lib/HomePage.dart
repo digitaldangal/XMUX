@@ -95,32 +95,7 @@ class HomePageState extends State<HomePage> {
         },
       ),
       drawer: new DrawerPage(),
-      endDrawer: new Drawer(
-        child: new Column(
-          children: <Widget>[
-            new DrawerHeader(
-              child: new CircleAvatar(
-                radius: 50.0,
-                child: new Text(
-                  "X",
-                  style: new TextStyle(fontSize: 50.0),
-                ),
-                backgroundColor: Colors.black,
-              ),
-            ),
-            new Expanded(
-              child: new Container(
-                margin: const EdgeInsets.all(15.0),
-                child: new Text(
-                  "We still need time to fix bug and build the release version. If you have any problems or suggestions please email us.\n\n Email: x@ctbeta.org",
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-            new Text("Version : " + AppInfo.version),
-          ],
-        ),
-      ),
+      endDrawer: new EndDrawer(),
     );
   }
 }
