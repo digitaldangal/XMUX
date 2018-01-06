@@ -7,7 +7,7 @@ import 'package:xmux/events/actions.dart';
 import 'package:xmux/explore/explorepage.dart';
 import 'package:xmux/init.dart';
 import 'package:xmux/message/messagepage.dart';
-import 'package:xmux/translate.dart';
+import 'package:xmux/translations/translation.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -64,24 +64,24 @@ class HomePageState extends State<HomePage> {
         items: [
           new BottomNavigationBarItem(
             title:
-                new Text(MainLocalizations.of(context).get("messages title")),
+                new Text(MainLocalizations.of(context).get("messages")),
             icon: new Icon(Icons.comment),
             backgroundColor: Theme.of(context).primaryColor,
           ),
           new BottomNavigationBarItem(
             title:
-                new Text(MainLocalizations.of(context).get("calendar title")),
+                new Text(MainLocalizations.of(context).get("calendar")),
             icon: new Icon(Icons.calendar_today),
             backgroundColor: Theme.of(context).primaryColor,
           ),
           new BottomNavigationBarItem(
             title:
-                new Text(MainLocalizations.of(context).get("academic title")),
+                new Text(MainLocalizations.of(context).get("academic")),
             icon: new Icon(Icons.explore),
             backgroundColor: Colors.lightBlue,
           ),
           new BottomNavigationBarItem(
-            title: new Text(MainLocalizations.of(context).get("explore title")),
+            title: new Text(MainLocalizations.of(context).get("explore")),
             icon: new Icon(Icons.search),
             backgroundColor: Colors.purple,
           ),

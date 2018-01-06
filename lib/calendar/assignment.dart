@@ -59,7 +59,7 @@ class _AssCard extends StatelessWidget {
                                   new Text(
                                     e["name"],
                                   ),
-                                  new Text("DeadLine : " + e["duedate"]),
+                                  new Text(e["duedate"]),
                                   new Divider(
                                     height: 5.0,
                                   )

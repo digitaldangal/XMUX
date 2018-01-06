@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/events/actions.dart';
 import 'package:xmux/init.dart';
-import 'package:xmux/translate.dart';
+import 'package:xmux/translations/translation.dart';
 
 class ExplorePage extends StatefulWidget {
   ExplorePage({Key key}) : super(key: key);
@@ -20,7 +21,7 @@ class _ExplorePageState extends State<ExplorePage> {
             onPressed: () {
               actionEventBus.fire(new OpenDrawer(true));
             }),
-        title: new Text(MainLocalizations.of(context).get("explore title")),
+        title: new Text(MainLocalizations.of(context).get("explore")),
         backgroundColor: Colors.purple,
       ),
       body: new Center(
@@ -59,27 +60,14 @@ class _ExplorePageState extends State<ExplorePage> {
             ),
             new FlatButton(
               onPressed: () {
-                Scaffold.of(context).showSnackBar(new SnackBar(content: new Text("Coming soon...")));
+                Scaffold.of(context).showSnackBar(
+                    new SnackBar(content: new Text("Coming soon...")));
               },
               child: new Row(
                 children: <Widget>[
-                  new Icon(Icons.room_service),
+                  new Icon(FontAwesomeIcons.table),
                   new Text(
                     " " + "Room reservation",
-                    style: Theme.of(context).textTheme.subhead,
-                  )
-                ],
-              ),
-            ),
-            new FlatButton(
-              onPressed: () {
-                Scaffold.of(context).showSnackBar(new SnackBar(content: new Text("Coming soon...")));
-              },
-              child: new Row(
-                children: <Widget>[
-                  new Icon(Icons.search),
-                  new Text(
-                    " " + "Book Search",
                     style: Theme.of(context).textTheme.subhead,
                   )
                 ],

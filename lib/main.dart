@@ -9,7 +9,7 @@ import 'package:xmux/identity/me.dart';
 import 'package:xmux/init.dart';
 import 'package:xmux/homepage.dart';
 import 'package:xmux/payment.dart';
-import 'package:xmux/translate.dart';
+import 'package:xmux/translations/translation.dart';
 
 void main() {
   mainFunc();
