@@ -28,12 +28,15 @@ void runMainApp() {
       home: new HomePage(),
       theme: defaultTheme,
       routes: <String, WidgetBuilder>{
-        "/wolframengine/constructor": (BuildContext context) => new InputConstructor(),
-        "/acdemic/gpacalculator": (BuildContext context) => new GPACalculatorPage(),
-        "/me":(BuildContext context) => new MePage(),
+        "/wolframengine/constructor": (BuildContext context) =>
+            new InputConstructor(),
+        "/acdemic/gpacalculator": (BuildContext context) =>
+            new GPACalculatorPage(),
+        "/me": (BuildContext context) => new MePage(),
         "/drawer/epayment": (BuildContext context) =>
-        new PaymentPage(globalCalendarState.paymentData),
-        "/explore/lostandfound":(BuildContext context) => new LostAndFoundPage(),
+            new PaymentPage(globalCalendarState.paymentData),
+        "/explore/lostandfound": (BuildContext context) =>
+            new LostAndFoundPage(),
       },
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AssignmentPage extends StatelessWidget {
@@ -47,25 +48,7 @@ class _AssCard extends StatelessWidget {
                   ),
                   new Column(
                     children: (assData["assignments"] as List)
-                        .map((var e) => new MaterialButton(
-                              onPressed: () {
-                                launch(
-                                    "https://l.xmu.edu.my/mod/assign/view.php?id=" +
-                                        e["id"].toString());
-                              },
-                              child: new Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  new Text(
-                                    e["name"],
-                                  ),
-                                  new Text(e["duedate"]),
-                                  new Divider(
-                                    height: 5.0,
-                                  )
-                                ],
-                              ),
-                            ))
+                        .map((var e) => new _AssButton(e))
                         .toList(),
                   ),
                 ],
@@ -73,6 +56,46 @@ class _AssCard extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _AssButton extends StatelessWidget {
+  var _assDetail;
+  DateTime _assTime;
+  _AssButton(this._assDetail);
+
+  @override
+  Widget build(BuildContext context) {
+    _assTime =
+        new DateTime.fromMillisecondsSinceEpoch(_assDetail["duedateTimestamp"]);
+    return new MaterialButton(
+      onPressed: () {
+        launch("https://l.xmu.edu.my/mod/assign/view.php?id=" +
+            _assDetail["id"].toString());
+      },
+      child: new Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          new Text(
+            _assDetail["name"],
+          ),
+          new Text(
+            new DateFormat.yMMMMEEEEd(
+                    Localizations.localeOf(context).languageCode)
+                .format(_assTime),
+            style: Theme.of(context).textTheme.body1,
+          ),
+          new Text(
+            new DateFormat.Hms(Localizations.localeOf(context).languageCode)
+                .format(_assTime),
+            style: Theme.of(context).textTheme.body1,
+          ),
+          new Divider(
+            height: 5.0,
+          )
+        ],
       ),
     );
   }

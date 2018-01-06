@@ -20,14 +20,22 @@ class AcademicPage extends StatelessWidget {
       body: new ListView(
         children: <Widget>[
           new _AcademicPageCard(
-            title: MainLocalizations.of(context).get("academic/wolframengine/title"),
-            caption: MainLocalizations.of(context).get("academic/wolframengine/caption"),
+            title: MainLocalizations
+                .of(context)
+                .get("academic/wolframengine/title"),
+            caption: MainLocalizations
+                .of(context)
+                .get("academic/wolframengine/caption"),
             image: "res/wolfram.png",
             route: "/wolframengine/constructor",
           ),
           new _AcademicPageCard(
-            title: MainLocalizations.of(context).get("academic/gpacalculator/name"),
-            caption: MainLocalizations.of(context).get("academic/gpacalculator/caption"),
+            title: MainLocalizations
+                .of(context)
+                .get("academic/gpacalculator/name"),
+            caption: MainLocalizations
+                .of(context)
+                .get("academic/gpacalculator/caption"),
             image: "res/gpa.png",
             route: "/acdemic/gpacalculator",
           ),

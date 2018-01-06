@@ -11,7 +11,8 @@ class WolframResult extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(MainLocalizations.of(context).get("academic/wolframengine/result")),
+        title: new Text(
+            MainLocalizations.of(context).get("academic/wolframengine/result")),
         backgroundColor: Colors.orange,
       ),
       body: new ListView(

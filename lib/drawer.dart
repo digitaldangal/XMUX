@@ -115,23 +115,30 @@ class EndDrawer extends StatelessWidget {
             child: new ListView(
               children: <Widget>[
                 new Container(
-                  margin: const EdgeInsets.all(15.0),
-                  child: new Column(children: <Widget>[
-                    new Text(
-                      "We still need time to fix bug and build the release version. If you have any problems or suggestions please contact us.\n\n Email: x@ctbeta.org \n QQGroup: 585779547",
-                      textAlign: TextAlign.center,
-                    ),
-                    new Divider(height: 20.0,),
-                    new RaisedButton(
-                      onPressed: () {
-                        launch("http://shang.qq.com/wpa/qunwpa?idkey=f07eb500a50900e4b475abc17ceeda9fb648cd7a57110a2710e14cbe6601ec2f");
-                      },
-                      child: new Text("Join QQ Group"),
-                      color: Theme.of(context).cardColor,
-                    ),
-                  ],)
+                    margin: const EdgeInsets.all(15.0),
+                    child: new Column(
+                      children: <Widget>[
+                        new Text(
+                          "We still need time to fix bug and build the release version. If you have any problems or suggestions please contact us.\n\n Email: x@ctbeta.org \n QQGroup: 585779547",
+                          textAlign: TextAlign.center,
+                        ),
+                        new Divider(
+                          height: 20.0,
+                        ),
+                        new RaisedButton(
+                          onPressed: () {
+                            launch(
+                                "http://shang.qq.com/wpa/qunwpa?idkey=f07eb500a50900e4b475abc17ceeda9fb648cd7a57110a2710e14cbe6601ec2f");
+                          },
+                          child: new Text("Join QQ Group"),
+                          color: Theme.of(context).cardColor,
+                        ),
+                      ],
+                    )),
+                new Text(
+                  "Version : " + AppInfo.version,
+                  textAlign: TextAlign.center,
                 ),
-                new Text("Version : " + AppInfo.version,textAlign: TextAlign.center,),
               ],
             ),
           ),

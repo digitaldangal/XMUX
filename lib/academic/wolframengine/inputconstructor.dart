@@ -132,7 +132,9 @@ class _InputConstructorState extends State<InputConstructor> {
               getInputButton(","),
               getInputButton("%"),
               new MaterialButton(
-                child: new Text(MainLocalizations.of(context).get("academic/wolframengine/inputconstructor/clearall")),
+                child: new Text(MainLocalizations
+                    .of(context)
+                    .get("academic/wolframengine/inputconstructor/clearall")),
                 onPressed: () {
                   _inputTextController.clear();
                 },

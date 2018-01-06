@@ -11,7 +11,7 @@ const Map<String, String> en_US = const {
   //Academic
   'academic/wolframengine/title': 'Wolfram Engine',
   'academic/wolframengine/caption':
-  'Search anything by powerful Wolfram Engine',
+      'Search anything by powerful Wolfram Engine',
   'academic/wolframengine/inputconstructor': 'Input Constructor',
   'academic/wolframengine/inputconstructor/clearall': 'Clear all',
   'academic/wolframengine/result': 'Search Result',
@@ -25,7 +25,7 @@ const Map<String, String> en_US = const {
   'e-payment': ' E-Payment',
   'e-payment/login': 'Login E-Payment',
   'e-payment/login/content':
-  'Please go to settings and save your E-Payment Password.',
+      'Please go to settings and save your E-Payment Password.',
   'e-payment/login/go': 'Go Settings',
   //explore
   'lostandfound': 'Lost and Found',
@@ -40,10 +40,10 @@ const Map<String, String> en_US = const {
   'lostandfound/day': ' Day(s)',
   'lostandfound/delete': 'Delete',
   'lostandfound/create': 'Create new L&F card',
-  'lostandfound/create/lostorfound':'Lost or Found ?',
-  'lostandfound/create/brieflocation':'Brief Location',
-  'lostandfound/create/things':'Things',
-  'lostandfound/create/time':'Time',
-  'lostandfound/create/location':'Detail Location',
-  'lostandfound/create/detail':'Details',
+  'lostandfound/create/lostorfound': 'Lost or Found ?',
+  'lostandfound/create/brieflocation': 'Brief Location',
+  'lostandfound/create/things': 'Things',
+  'lostandfound/create/time': 'Time',
+  'lostandfound/create/location': 'Detail Location',
+  'lostandfound/create/detail': 'Details',
 };

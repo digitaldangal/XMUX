@@ -63,20 +63,17 @@ class HomePageState extends State<HomePage> {
       bottomNavigationBar: new BottomNavigationBar(
         items: [
           new BottomNavigationBarItem(
-            title:
-                new Text(MainLocalizations.of(context).get("messages")),
+            title: new Text(MainLocalizations.of(context).get("messages")),
             icon: new Icon(Icons.comment),
             backgroundColor: Theme.of(context).primaryColor,
           ),
           new BottomNavigationBarItem(
-            title:
-                new Text(MainLocalizations.of(context).get("calendar")),
+            title: new Text(MainLocalizations.of(context).get("calendar")),
             icon: new Icon(Icons.calendar_today),
             backgroundColor: Theme.of(context).primaryColor,
           ),
           new BottomNavigationBarItem(
-            title:
-                new Text(MainLocalizations.of(context).get("academic")),
+            title: new Text(MainLocalizations.of(context).get("academic")),
             icon: new Icon(Icons.explore),
             backgroundColor: Colors.lightBlue,
           ),
