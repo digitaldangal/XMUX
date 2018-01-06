@@ -27,6 +27,9 @@ const Map<String, String> en_US = const {
   'e-payment/login/content':
       'Please go to settings and save your E-Payment Password.',
   'e-payment/login/go': 'Go Settings',
+  'e-payment/status': 'Status : ',
+  'e-payment/paid': 'Paid',
+  'e-payment/unpaid': 'Unpaid',
   //explore
   'lostandfound': 'Lost and Found',
   'lostandfound/location': 'Location : ',

@@ -25,6 +25,9 @@ const Map<String, String> zh_CN = const {
   'e-payment/login': '登陆 E-Payment',
   'e-payment/login/content': '请在设置页绑定您的\nE-Payment 密码。',
   'e-payment/login/go': '前往设置页',
+  'e-payment/status': '状态：',
+  'e-payment/paid': '已支付',
+  'e-payment/unpaid': '未支付',
   //explore
   'lostandfound': '失物招领',
   'lostandfound/location': '地点：',

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:xmux/translations/translation.dart';
 
 class AssignmentPage extends StatelessWidget {
   final List rawData;
@@ -87,10 +88,28 @@ class _AssButton extends StatelessWidget {
                 .format(_assTime),
             style: Theme.of(context).textTheme.body1,
           ),
-          new Text(
-            new DateFormat.Hms(Localizations.localeOf(context).languageCode)
-                .format(_assTime),
-            style: Theme.of(context).textTheme.body1,
+          new Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              new Text(
+                new DateFormat.Hms(Localizations.localeOf(context).languageCode)
+                    .format(_assTime),
+                style: Theme.of(context).textTheme.body1,
+              ),
+              _assTime.isAfter(new DateTime.now())
+                  ? new Text(
+                      " (" +
+                          _assTime
+                              .difference(new DateTime.now())
+                              .inDays
+                              .toString() +
+                          MainLocalizations
+                              .of(context)
+                              .get("lostandfound/day") +
+                          ")",
+                      style: Theme.of(context).textTheme.body1)
+                  : new Container(),
+            ],
           ),
           new Divider(
             height: 5.0,
