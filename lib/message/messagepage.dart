@@ -148,8 +148,10 @@ class MessagePageState extends State<MessagePage> {
                     _isComposing = text.length > 0;
                   });
                 },
-                decoration:
-                    new InputDecoration.collapsed(hintText: "Send a message"),
+                decoration: new InputDecoration.collapsed(
+                    hintText: MainLocalizations
+                        .of(context)
+                        .get("messages/sendmessage")),
               ),
             ),
             new Container(

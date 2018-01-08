@@ -4,6 +4,8 @@ const Map<String, String> zh_CN = const {
   'calendar': '日程',
   'academic': '学术',
   'explore': '发现',
+  //Messages
+  'messages/sendmessage': '发送一条消息',
   //Calendar
   'calendar/classes': '课程',
   'calendar/exams': '考试',
@@ -16,18 +18,6 @@ const Map<String, String> zh_CN = const {
   'academic/wolframengine/result': '搜索结果',
   'academic/gpacalculator/name': 'GPA 计算器',
   'academic/gpacalculator/caption': '轻松计算平均学分绩点',
-  //me
-  'me': '我',
-  'me/signout': '登出',
-  //drawer
-  'header/welcome': '您好，',
-  'e-payment': ' E-Payment',
-  'e-payment/login': '登陆 E-Payment',
-  'e-payment/login/content': '请在设置页绑定您的\nE-Payment 密码。',
-  'e-payment/login/go': '前往设置页',
-  'e-payment/status': '状态：',
-  'e-payment/paid': '已支付',
-  'e-payment/unpaid': '未支付',
   //explore
   'lostandfound': '失物招领',
   'lostandfound/location': '地点：',
@@ -47,4 +37,18 @@ const Map<String, String> zh_CN = const {
   'lostandfound/create/time': '时间',
   'lostandfound/create/location': '详细地点',
   'lostandfound/create/detail': '详情',
+  'roomreservation': '教室预定',
+  //me
+  'me': '我',
+  'me/signout': '登出',
+  //drawer
+  'header/welcome': '您好，',
+  'e-payment': ' E-Payment',
+  'e-payment/login': '登陆 E-Payment',
+  'e-payment/login/content': '请在设置页绑定您的\nE-Payment 密码。',
+  'e-payment/login/go': '前往设置页',
+  'e-payment/status': '状态：',
+  'e-payment/paid': '已支付',
+  'e-payment/unpaid': '未支付',
+  //about
 };

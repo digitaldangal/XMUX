@@ -67,7 +67,7 @@ class _ExplorePageState extends State<ExplorePage> {
                 children: <Widget>[
                   new Icon(FontAwesomeIcons.table),
                   new Text(
-                    " " + "Room reservation",
+                    " " + MainLocalizations.of(context).get("roomreservation"),
                     style: Theme.of(context).textTheme.subhead,
                   )
                 ],

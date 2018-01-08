@@ -4,6 +4,8 @@ const Map<String, String> en_US = const {
   'calendar': 'Calendar',
   'academic': 'Academic',
   'explore': 'Explore',
+  //Messages
+  'messages/sendmessage': 'Send a message.',
   //Calendar
   'calendar/classes': 'Classes',
   'calendar/exams': 'Exams',
@@ -17,19 +19,6 @@ const Map<String, String> en_US = const {
   'academic/wolframengine/result': 'Search Result',
   'academic/gpacalculator/name': 'GPA Calculator',
   'academic/gpacalculator/caption': 'Calculate your GPA easily',
-  //me
-  'me': 'Me',
-  'me/signout': 'Sign out',
-  //drawer
-  'header/welcome': 'Hello,',
-  'e-payment': ' E-Payment',
-  'e-payment/login': 'Login E-Payment',
-  'e-payment/login/content':
-      'Please go to settings and save your E-Payment Password.',
-  'e-payment/login/go': 'Go Settings',
-  'e-payment/status': 'Status : ',
-  'e-payment/paid': 'Paid',
-  'e-payment/unpaid': 'Unpaid',
   //explore
   'lostandfound': 'Lost and Found',
   'lostandfound/location': 'Location : ',
@@ -49,4 +38,19 @@ const Map<String, String> en_US = const {
   'lostandfound/create/time': 'Time',
   'lostandfound/create/location': 'Detail Location',
   'lostandfound/create/detail': 'Details',
+  'roomreservation': 'Room reservation',
+  //me
+  'me': 'Me',
+  'me/signout': 'Sign out',
+  //drawer
+  'header/welcome': 'Hello,',
+  'e-payment': ' E-Payment',
+  'e-payment/login': 'Login E-Payment',
+  'e-payment/login/content':
+      'Please go to settings and save your E-Payment Password.',
+  'e-payment/login/go': 'Go Settings',
+  'e-payment/status': 'Status : ',
+  'e-payment/paid': 'Paid',
+  'e-payment/unpaid': 'Unpaid',
+  //about
 };
