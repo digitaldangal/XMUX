@@ -28,17 +28,23 @@ class _LoginPageState extends State<LoginPage> {
       LoginHandler
           .loginAuth(_usernameController.text, _passwordController.text)
           .then((r) async {
-        if (r.containsKey("success") && await LoginHandler.firebaseLogin())
-          runMainApp();
-        else {
-          String _error = r["error"];
-          Scaffold
-              .of(context)
-              .showSnackBar(new SnackBar(content: new Text("Error : $_error")));
+        if (r.containsKey("error")) {
+          Scaffold.of(context).showSnackBar(
+              new SnackBar(content: new Text("Error : ${r["error"]}")));
           setState(() {
             _isProcessing = false;
           });
-        }
+        } else
+          LoginHandler.firebaseLogin().then((r) {
+            if (r.containsKey("error")) {
+              Scaffold.of(context).showSnackBar(
+                  new SnackBar(content: new Text("Error : ${r["error"]}")));
+              setState(() {
+                _isProcessing = false;
+              });
+            } else
+              runMainApp();
+          });
       });
     }
   }

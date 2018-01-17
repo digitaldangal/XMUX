@@ -29,8 +29,6 @@ class LoginHandler {
     globalCalendarState.classesData = resJson["timetable"];
     globalCalendarState.examsData = resJson["exam"];
     globalCalendarState.assignmentData = resJson["assignment"];
-//    globalPersonalInfoState.fullName = resJson["moodle"]["fullname"];
-//    globalPersonalInfoState.avatarURL = resJson["moodle"]["userpictureurl"];
 
     _save(
         JSON.encode({
@@ -70,7 +68,7 @@ class LoginHandler {
     return {"success": true};
   }
 
-  static Future<bool> firebaseLogin() async {
+  static Future<Map<String, dynamic>> firebaseLogin() async {
     try {
       if (await FirebaseAuth.instance.currentUser() == null)
         firebaseUser = await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -79,13 +77,13 @@ class LoginHandler {
       else
         firebaseUser = await FirebaseAuth.instance.currentUser();
     } catch (e) {
-      return false;
+      return {"error": e.toString()};
     }
 
     globalPersonalInfoState.fullName = firebaseUser.displayName;
     globalPersonalInfoState.avatarURL = firebaseUser.photoUrl;
 
-    return true;
+    return {"success": true};
   }
 
   static Future<Null> _save(String fileText, String fileName) async {
