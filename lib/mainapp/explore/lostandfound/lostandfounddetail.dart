@@ -18,7 +18,7 @@ class LostAndFoundDetailPage extends StatelessWidget {
       body: new ListView(
         children: <Widget>[
           new Container(
-            margin: const EdgeInsets.all(15.0),
+            margin: const EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 10.0),
             child: new Column(
               children: <Widget>[
                 new CircleAvatar(
