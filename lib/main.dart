@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:xmux/initapp/initpage.dart';
+import 'package:xmux/loginapp/loginpage.dart';
 import 'package:xmux/mainapp/academic/gpacalculator.dart';
 import 'package:xmux/mainapp/academic/wolframengine/inputconstructor.dart';
 import 'package:xmux/config.dart';
@@ -11,14 +13,19 @@ import 'package:xmux/mainapp/HomePage.dart';
 import 'package:xmux/mainapp/payment.dart';
 import 'package:xmux/translations/translation.dart';
 
-void main() {
-  mainFunc();
-}
-
-Future mainFunc() async {
+Future main() async {
   runApp(new InitPage());
 
-  if (await init()) runMainApp();
+  String initResult = await init();
+
+  switch (initResult) {
+    case "NotLogin":
+    case "LoginError":
+      runLoginApp();
+      break;
+    case "Finished":
+      runMainApp();
+  }
 }
 
 void runMainApp() {
@@ -42,6 +49,24 @@ void runMainApp() {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         MainLocalizationsDelegate.delegate,
+      ],
+      supportedLocales: [
+        const Locale('zh', 'CN'),
+        const Locale('en', 'US'),
+      ],
+    ),
+  );
+}
+
+void runLoginApp() {
+  runApp(
+    new MaterialApp(
+      theme: defaultTheme,
+      home: new LoginPage(),
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        LoginLocalizationsDelegate.delegate,
       ],
       supportedLocales: [
         const Locale('zh', 'CN'),
