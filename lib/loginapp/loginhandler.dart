@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:xmux/config.dart';
-import 'package:xmux/init.dart';
+import 'package:xmux/initapp/init.dart';
 
 class LoginHandler {
   static Future<Map<String, dynamic>> loginAuth(

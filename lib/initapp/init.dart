@@ -10,8 +10,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:xmux/config.dart';
-import 'package:xmux/identity/login.dart';
-import 'package:xmux/identity/loginhandler.dart';
+import 'package:xmux/loginapp/login.dart';
+import 'package:xmux/loginapp/loginhandler.dart';
 import 'package:xmux/translations/translation.dart';
 
 final FirebaseMessaging firebaseMessaging = new FirebaseMessaging();

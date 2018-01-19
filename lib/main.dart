@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:xmux/academic/gpacalculator.dart';
-import 'package:xmux/academic/wolframengine/inputconstructor.dart';
+import 'package:xmux/mainapp/academic/gpacalculator.dart';
+import 'package:xmux/mainapp/academic/wolframengine/inputconstructor.dart';
 import 'package:xmux/config.dart';
-import 'package:xmux/explore/lostandfound/lostandfoundpage.dart';
-import 'package:xmux/identity/me.dart';
-import 'package:xmux/init.dart';
-import 'package:xmux/homepage.dart';
-import 'package:xmux/payment.dart';
+import 'package:xmux/mainapp/explore/lostandfound/lostandfoundpage.dart';
+import 'package:xmux/mainapp/identity/me.dart';
+import 'package:xmux/initapp/init.dart';
+import 'package:xmux/mainapp/HomePage.dart';
+import 'package:xmux/mainapp/payment.dart';
 import 'package:xmux/translations/translation.dart';
 
 void main() {

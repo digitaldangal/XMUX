@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:xmux/identity/loginhandler.dart';
+import 'package:xmux/loginapp/loginhandler.dart';
 import 'package:xmux/main.dart';
 import 'package:xmux/translations/translation.dart';
 
