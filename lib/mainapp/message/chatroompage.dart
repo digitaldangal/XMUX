@@ -8,11 +8,8 @@ import 'package:flutter/foundation.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:xmux/mainapp/events/actions.dart';
 import 'package:xmux/initapp/init.dart';
-import 'package:xmux/mainapp/redux/actions.dart';
 import 'package:xmux/translations/translation.dart';
 
 var reference;
