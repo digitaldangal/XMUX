@@ -1,36 +1,35 @@
 class MainAppState {
   final bool drawerIsOpen;
 
+  /// Personal info state include uid, password, etc.
+  PersonalInfoState personalInfoState;
+
+  /// Settings state include ePaymentPassword, etc.
+  SettingState settingState;
+
   /// AC state include timetable, exams and examResult.
   ACState acState;
 
   MainAppState(this.drawerIsOpen);
 
   MainAppState.fromJson(Map json) : this.drawerIsOpen = false {
-    acState = new ACState.fromJson(json);
+    this.personalInfoState = new PersonalInfoState();
+    this.acState = new ACState.fromJson(json["acState"]);
   }
-
-  get toString => "MainAppState";
+  String toString() => "MainAppState";
 }
 
 class PersonalInfoState {
-  String id, password, ePaymentPassword;
-  String fullName, avatarURL;
+  /// User authentication (Campus ID).
+  String uid, password;
 
-  PersonalInfoState(
-      {this.id,
-      this.password,
-      this.ePaymentPassword,
-      this.fullName,
-      this.avatarURL});
+  /// AvatarURL.
+  String avatarURL;
+}
 
-  void clear() {
-    this.id = null;
-    this.password = null;
-    this.ePaymentPassword = null;
-    this.fullName = null;
-    this.avatarURL = null;
-  }
+class SettingState {
+  /// E-payment password.
+  String ePaymentPassword;
 }
 
 class ACState {
@@ -56,11 +55,11 @@ class ACState {
       this.status, this.timestamp, this.timetable, this.exams, this.examResult,
       {this.error});
 
-  ACState.fromJson(Map<String, dynamic> ACJson)
-      : this.status = ACJson["status"],
-        this.timestamp = ACJson["timestamp"],
-        this.timetable = ACJson["data"]["timetable"],
-        this.exams = ACJson["data"]["exams"],
-        this.examResult = ACJson["data"]["examResult"],
-        this.error = ACJson["error"] ?? null;
+  ACState.fromJson(Map<String, dynamic> acJson)
+      : this.status = acJson["status"],
+        this.timestamp = acJson["timestamp"],
+        this.timetable = acJson["data"]["timetable"],
+        this.exams = acJson["data"]["exams"],
+        this.examResult = acJson["data"]["examResult"],
+        this.error = acJson["error"] ?? null;
 }
