@@ -16,16 +16,16 @@ import 'package:xmux/mainapp/payment.dart';
 import 'package:xmux/translations/translation.dart';
 
 class MainApp extends StatelessWidget {
-  final store =
+  final mainAppStore =
       new Store(mainAppReducer, initialState: new MainAppState(false));
 
   @override
   Widget build(BuildContext context) {
     return new StoreProvider(
-      store: store,
+      store: mainAppStore,
       child: new MaterialApp(
         title: 'XMUX',
-        home: new HomePage(store),
+        home: new HomePage(mainAppStore),
         theme: defaultTheme,
         routes: <String, WidgetBuilder>{
           "/wolframengine/constructor": (BuildContext context) =>
