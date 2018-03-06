@@ -6,15 +6,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'package:redux/redux.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/loginapp/loginhandler.dart';
+import 'package:xmux/redux/state.dart';
 
 final FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
 FirebaseUser firebaseUser;
-final gPersonalInfoState globalPersonalInfoState = new gPersonalInfoState();
+final GPersonalInfoState globalPersonalInfoState = new GPersonalInfoState();
 final CalendarState globalCalendarState = new CalendarState();
 
-Future<String> init() async {
+Future<String> init(Store<MainAppState> store) async {
   String dir, loginInfo;
   try {
     dir = (await getApplicationDocumentsDirectory()).path;
@@ -51,11 +53,11 @@ Future<String> init() async {
   return "Finished";
 }
 
-class gPersonalInfoState {
+class GPersonalInfoState {
   String id, password, ePaymentPassword;
   String fullName, avatarURL;
 
-  gPersonalInfoState(
+  GPersonalInfoState(
       {this.id,
       this.password,
       this.ePaymentPassword,

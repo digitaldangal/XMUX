@@ -1,5 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 class MainAppState {
   final bool drawerIsOpen;
+
+  // Firebase user instance.
+  final FirebaseUser firebaseUser;
 
   /// Personal info state include uid, password, etc.
   final PersonalInfoState personalInfoState;
@@ -15,16 +20,18 @@ class MainAppState {
 
   MainAppState()
       : this.drawerIsOpen = false,
+        this.firebaseUser = null,
         this.personalInfoState = new PersonalInfoState(),
         this.settingState = new SettingState(),
         this.homePageState = new HomePageState(),
         this.acState = new ACState();
 
-  MainAppState.raw(this.drawerIsOpen, this.personalInfoState, this.settingState,
-      this.homePageState, this.acState);
+  MainAppState.raw(this.drawerIsOpen, this.firebaseUser, this.personalInfoState,
+      this.settingState, this.homePageState, this.acState);
 
-  MainAppState.fromJson(Map json)
+  MainAppState.fromJson(Map json, {FirebaseUser firebaseUser})
       : this.drawerIsOpen = false,
+        this.firebaseUser = firebaseUser ?? null,
         this.personalInfoState = new PersonalInfoState(),
         this.settingState = new SettingState(),
         this.homePageState = new HomePageState(),
@@ -32,12 +39,14 @@ class MainAppState {
 
   MainAppState copyWith(
           {bool drawerIsOpen,
+          FirebaseUser firebaseUser,
           PersonalInfoState personalInfoState,
           SettingState settingState,
           HomePageState homePageState,
           ACState acState}) =>
       new MainAppState.raw(
           drawerIsOpen ?? this.drawerIsOpen,
+          firebaseUser ?? this.firebaseUser,
           personalInfoState ?? this.personalInfoState,
           settingState ?? this.settingState,
           homePageState ?? this.homePageState,
@@ -66,7 +75,11 @@ class PersonalInfoState {
 
 class SettingState {
   /// E-payment password.
-  String ePaymentPassword;
+  final String ePaymentPassword;
+
+  SettingState() : ePaymentPassword = null;
+
+  SettingState.raw(this.ePaymentPassword);
 }
 
 class HomePageState {

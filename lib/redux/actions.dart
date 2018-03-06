@@ -2,7 +2,7 @@ abstract class MainAppAction {
   String toString() => "";
 }
 
-class openDrawerAction extends MainAppAction {
+class OpenDrawerAction extends MainAppAction {
   final bool drawerStatus;
-  openDrawerAction(this.drawerStatus);
+  OpenDrawerAction(this.drawerStatus);
 }

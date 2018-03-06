@@ -21,7 +21,7 @@ class MessagePage extends StatelessWidget {
                   backgroundImage:
                       new NetworkImage(globalPersonalInfoState.avatarURL),
                 ),
-                onPressed: () => store.dispatch(new openDrawerAction(true)),
+                onPressed: () => store.dispatch(new OpenDrawerAction(true)),
               ),
         ),
         title: new Text(MainLocalizations.of(context).get("messages")),
