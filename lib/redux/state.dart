@@ -61,8 +61,6 @@ class MainAppState {
           settingState ?? this.settingState,
           homePageState ?? this.homePageState,
           acState ?? this.acState);
-
-  String toString() => "MainAppState";
 }
 
 class PersonalInfoState {
@@ -140,6 +138,9 @@ class ACState {
         this.exams = null,
         this.examResult = null;
 
+  ACState.raw(this.status, this.error, this.timestamp, this.timetable,
+      this.exams, this.examResult);
+
   ACState.fromJson(Map<String, dynamic> acJson)
       : this.status = acJson["status"],
         this.timestamp = acJson["timestamp"],
@@ -158,4 +159,20 @@ class ACState {
         },
         "error": this.error ?? null,
       };
+
+  ACState copyWith(
+          {String status,
+          String error,
+          int timestamp,
+          Map<String, dynamic> timetable,
+          Map<String, dynamic> exams,
+          Map<String, dynamic> examResult}) =>
+      new ACState.raw(
+        status ?? this.status,
+        error ?? this.error,
+        timestamp ?? this.timestamp,
+        timetable ?? this.timetable,
+        exams ?? this.exams,
+        examResult ?? this.examResult,
+      );
 }

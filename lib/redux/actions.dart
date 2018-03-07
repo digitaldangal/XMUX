@@ -8,9 +8,12 @@ class OpenDrawerAction extends MainAppAction {
   OpenDrawerAction(this.drawerStatus);
 }
 
-
 class InitAction extends MainAppAction {
   get name => super.name + "Init";
   final Map<String, dynamic> initMap;
   InitAction(this.initMap);
+}
+
+class UpdateSettingAction extends MainAppAction {
+  get name => super.name + "UpdateSetting";
 }
