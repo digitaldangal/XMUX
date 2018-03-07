@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:redux/redux.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/loginapp/loginhandler.dart';
+import 'package:xmux/redux/actions.dart';
 import 'package:xmux/redux/state.dart';
 
 final FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
@@ -17,20 +18,25 @@ final GPersonalInfoState globalPersonalInfoState = new GPersonalInfoState();
 final CalendarState globalCalendarState = new CalendarState();
 
 Future<String> init(Store<MainAppState> store) async {
-  String dir, loginInfo;
+  String appDocDir;
+  Map<String, Map> initMap;
+
+  // Check if local state is available.
   try {
-    dir = (await getApplicationDocumentsDirectory()).path;
-    loginInfo = await (new File('$dir/login.dat')).readAsString();
+    appDocDir = (await getApplicationDocumentsDirectory()).path;
+    initMap =
+        JSON.decode(await (new File('$appDocDir/state.dat')).readAsString());
   } catch (e) {
     return "NotLogin";
   }
-  Map loginInfoJson = JSON.decode(loginInfo);
+
+  // Init store from initMap
+  store.dispatch(new InitAction(initMap));
+
   var response = await http.post(BackendApiConfig.address + "/refresh", body: {
-    "id": loginInfoJson["campusId"],
-    "cpass": loginInfoJson["password"],
-    "epass": loginInfoJson["ePaymentPassword"] == null
-        ? ""
-        : loginInfoJson["ePaymentPassword"],
+    "id": store.state.personalInfoState.uid,
+    "cpass": store.state.personalInfoState.password,
+    "epass": store.state.settingState.ePaymentPassword ?? ""
   });
   Map resJson = JSON.decode(response.body);
 
@@ -40,9 +46,10 @@ Future<String> init(Store<MainAppState> store) async {
     return "LoginError";
   }
 
-  globalPersonalInfoState.id = loginInfoJson["campusId"];
-  globalPersonalInfoState.password = loginInfoJson["password"];
-  globalPersonalInfoState.ePaymentPassword = loginInfoJson["ePaymentPassword"];
+  globalPersonalInfoState.id = store.state.personalInfoState.uid;
+  globalPersonalInfoState.password = store.state.personalInfoState.password;
+  globalPersonalInfoState.ePaymentPassword =
+      store.state.settingState.ePaymentPassword;
   globalPersonalInfoState.fullName = resJson["moodle"]["fullname"];
   globalPersonalInfoState.avatarURL = resJson["moodle"]["userpictureurl"];
   globalCalendarState.classesData = resJson["timetable"];
