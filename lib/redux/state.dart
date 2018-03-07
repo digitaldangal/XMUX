@@ -18,6 +18,7 @@ class MainAppState {
   /// AC state include timetable, exams and examResult.
   final ACState acState;
 
+  /// Init mainAppState as default.
   MainAppState()
       : this.drawerIsOpen = false,
         this.firebaseUser = null,
@@ -29,13 +30,22 @@ class MainAppState {
   MainAppState.raw(this.drawerIsOpen, this.firebaseUser, this.personalInfoState,
       this.settingState, this.homePageState, this.acState);
 
-  MainAppState.fromJson(Map json, {FirebaseUser firebaseUser})
+  MainAppState.fromJson(Map<String, Map> json, {FirebaseUser firebaseUser})
       : this.drawerIsOpen = false,
         this.firebaseUser = firebaseUser ?? null,
-        this.personalInfoState = new PersonalInfoState(),
-        this.settingState = new SettingState(),
+        this.personalInfoState =
+            new PersonalInfoState.fromJson(json["personalInfoState"]),
+        this.settingState =
+            new SettingState.raw(json["settingState"]["ePaymentPassword"]),
         this.homePageState = new HomePageState(),
         this.acState = new ACState.fromJson(json["acState"]);
+
+  Map<String, Map> toMap() => {
+        "personalInfoState": this.personalInfoState.toMap(),
+        "settingState": this.settingState.toMap(),
+        "homePageState": {},
+        "acState": this.acState.toMap(),
+      };
 
   MainAppState copyWith(
           {bool drawerIsOpen,
@@ -71,6 +81,12 @@ class PersonalInfoState {
       : this.uid = piJson["uid"],
         this.password = piJson["password"],
         this.avatarURL = piJson["avaterURL"];
+
+  Map<String, String> toMap() => {
+        "uid": this.uid,
+        "password": this.password,
+        "avatarURL": this.avatarURL,
+      };
 }
 
 class SettingState {
@@ -80,6 +96,10 @@ class SettingState {
   SettingState() : ePaymentPassword = null;
 
   SettingState.raw(this.ePaymentPassword);
+
+  Map<String, String> toMap() => {
+        "ePaymentPassword": this.ePaymentPassword,
+      };
 }
 
 class HomePageState {
@@ -127,4 +147,15 @@ class ACState {
         this.exams = acJson["data"]["exams"],
         this.examResult = acJson["data"]["examResult"],
         this.error = acJson["error"] ?? null;
+
+  Map<String, dynamic> toMap() => {
+        "status": this.status,
+        "timestamp": this.timestamp,
+        "data": {
+          "timetable": this.timetable,
+          "exams": this.exams,
+          "examResult": this.examResult,
+        },
+        "error": this.error ?? null,
+      };
 }
