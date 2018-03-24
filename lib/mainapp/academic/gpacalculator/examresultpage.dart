@@ -12,7 +12,7 @@ class ExamResultPage extends StatefulWidget {
 }
 
 class _ExamResultPageState extends State<ExamResultPage> {
-  Map _examResult, _currentSession;
+  var _examResult, _currentSession;
 
   Future<Null> _getExamResult() async {
     var response = await http.post(BackendApiConfig.address + "/v2/ac", body: {
@@ -21,7 +21,7 @@ class _ExamResultPageState extends State<ExamResultPage> {
     });
     setState(() {
       _examResult = JSON.decode(response.body)["data"]["examResult"];
-      _currentSession = _examResult["data"][0];
+      _currentSession = _examResult[0];
     });
   }
 
@@ -44,7 +44,7 @@ class _ExamResultPageState extends State<ExamResultPage> {
                       style: Theme.of(context).textTheme.subhead,
                     ),
                     trailing: new DropdownButton(
-                      items: (_examResult["data"] as List)
+                      items: (_examResult as List)
                           .map((o) => new DropdownMenuItem(
                                 child: new Text(o["academicSession"]),
                                 value: o,
@@ -64,7 +64,7 @@ class _ExamResultPageState extends State<ExamResultPage> {
                       child: new Column(
                         children: (_currentSession["result"] as List)
                             .map((courseResult) =>
-                                new _courseResultUI(courseResult))
+                                new _CourseResultUI(courseResult))
                             .toList(),
                       ),
                     ),
@@ -79,7 +79,7 @@ class _ExamResultPageState extends State<ExamResultPage> {
                               padding: const EdgeInsets.all(10.0),
                               child: new Center(
                                 child: new Text(
-                                  "GPA : "+_currentSession["GPA"].toString(),
+                                  "GPA : " + _currentSession["GPA"].toString(),
                                   style: Theme.of(context).textTheme.headline,
                                 ),
                               ),
@@ -92,7 +92,8 @@ class _ExamResultPageState extends State<ExamResultPage> {
                               padding: const EdgeInsets.all(10.0),
                               child: new Center(
                                 child: new Text(
-                                  "CGPA : "+_currentSession["CGPA"].toString(),
+                                  "CGPA : " +
+                                      _currentSession["CGPA"].toString(),
                                   style: Theme.of(context).textTheme.headline,
                                 ),
                               ),
@@ -110,10 +111,10 @@ class _ExamResultPageState extends State<ExamResultPage> {
       );
 }
 
-class _courseResultUI extends StatelessWidget {
+class _CourseResultUI extends StatelessWidget {
   Map _courseResult;
 
-  _courseResultUI(this._courseResult);
+  _CourseResultUI(this._courseResult);
 
   static Color _getGradeColor(double point) {
     if (point >= 3.7)

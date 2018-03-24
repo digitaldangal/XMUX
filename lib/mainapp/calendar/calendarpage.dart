@@ -69,9 +69,9 @@ class _CalendarPageState extends State<CalendarPage> {
                     acState.exams == null
                         ? new _ErrorPage()
                         : new ExamsPage(acState.exams),
-                    acState.assignments == null
+                    globalCalendarState.assignmentData == null
                         ? new _ErrorPage()
-                        : new AssignmentPage(acState.assignments),
+                        : new AssignmentPage(globalCalendarState.assignmentData),
                   ]),
               converter: (s) => s.state.acState)),
     );
