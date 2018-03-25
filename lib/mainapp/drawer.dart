@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/config.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/initapp/init.dart';
 import 'package:xmux/translations/translation.dart';
 
@@ -52,7 +53,7 @@ class DrawerPageState extends State<DrawerPage> {
                       margin: const EdgeInsets.all(10.0),
                       child: new CircleAvatar(
                         backgroundImage:
-                            new NetworkImage(globalPersonalInfoState.avatarURL),
+                            new NetworkImage(firebaseUser.photoUrl),
                         radius: 30.0,
                       ),
                     ),
@@ -60,7 +61,7 @@ class DrawerPageState extends State<DrawerPage> {
                       child: new Text(
                         MainLocalizations.of(context).get("header/welcome") +
                             "\n" +
-                            globalPersonalInfoState.fullName,
+                            firebaseUser.displayName,
                         textAlign: TextAlign.center,
                       ),
                     ),
