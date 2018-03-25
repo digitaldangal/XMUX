@@ -23,7 +23,6 @@ PersonalInfoState _personalInfoReducer(
 }
 
 SettingState _settingReducer(SettingState oldState, dynamic action) {
-
   return oldState;
 }
 
@@ -32,5 +31,9 @@ HomePageState _homePageReducer(HomePageState oldState, dynamic action) {
 }
 
 ACState _acReducer(ACState oldState, dynamic action) {
-  return oldState;
+  if (action is UpdateACAction) {
+    if (action.acInitMap != null) return new ACState.fromJson(action.acInitMap);
+    return oldState.copyWith(assignments: action.assignments);
+  } else
+    return oldState;
 }
