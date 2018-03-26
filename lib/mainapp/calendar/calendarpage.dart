@@ -66,9 +66,9 @@ class _CalendarPageState extends State<CalendarPage> {
                     acState.timetable == null
                         ? new EmptyErrorPage()
                         : new TimeTablePage(acState.timetable),
-                    globalCalendarState.examsData == null
+                    acState.exams == null
                         ? new EmptyErrorPage()
-                        : new ExamsPage(globalCalendarState.examsData),
+                        : new ExamsPage(acState.exams),
                     acState.assignments == null
                         ? new EmptyErrorPage()
                         : new AssignmentPage(acState.assignments),

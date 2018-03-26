@@ -49,9 +49,6 @@ Future<String> init() async {
 
   globalPersonalInfoState.ePaymentPassword =
       mainAppStore.state.settingState.ePaymentPassword;
-  globalCalendarState.classesData = resJson["timetable"];
-  globalCalendarState.examsData = resJson["exam"];
-  globalCalendarState.assignmentData = resJson["assignment"];
   globalCalendarState.paymentData = resJson["bill"];
 
   return "Finished";
@@ -70,19 +67,11 @@ class GPersonalInfoState {
 }
 
 class CalendarState {
-  Map classesData, examsData, paymentData;
-  List assignmentData;
+  Map paymentData;
 
-  CalendarState(
-      {this.classesData,
-      this.examsData,
-      this.paymentData,
-      this.assignmentData});
+  CalendarState({this.paymentData});
 
   void clear() {
-    this.classesData = null;
-    this.examsData = null;
     this.paymentData = null;
-    this.assignmentData = null;
   }
 }
