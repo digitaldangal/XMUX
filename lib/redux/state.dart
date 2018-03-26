@@ -103,7 +103,7 @@ class ACState {
   final int timestamp;
 
   /// Timetable list.
-  final List<Map<String, String>> timetable;
+  final List<Map<String, dynamic>> timetable;
 
   /// Exams map.
   final List<Map<String, String>> exams;
@@ -150,7 +150,7 @@ class ACState {
           {String status,
           String error,
           int timestamp,
-          List<Map<String, String>> timetable,
+          List<Map<String, dynamic>> timetable,
           List<Map<String, String>> exams,
           List<Map<String, dynamic>> examResult,
           List<Map> assignments}) =>
