@@ -9,7 +9,7 @@ class CalendarHandler {
   static Future<String> acUpdate({BuildContext context}) async {
     // Get response from backend.
     var response =
-        await backendApiHandler(context: context, api: "/v2/ac", body: {
+        await BackendApiHandler.post(context: context, api: "/v2/ac", body: {
       "id": mainAppStore.state.personalInfoState.uid,
       "pass": mainAppStore.state.personalInfoState.password,
     });
@@ -26,13 +26,11 @@ class CalendarHandler {
 
   static Future<String> assignmentUpdate({BuildContext context}) async {
     // Get response from backend.
-    var response = await backendApiHandler(
-        context: context,
-        api: "/moodle/assignment",
-        body: {
-          "id": mainAppStore.state.personalInfoState.uid,
-          "pass": mainAppStore.state.personalInfoState.password,
-        });
+    var response = await BackendApiHandler
+        .post(context: context, api: "/moodle/assignment", body: {
+      "id": mainAppStore.state.personalInfoState.uid,
+      "pass": mainAppStore.state.personalInfoState.password,
+    });
 
     // Check error
     if (response.statusCode >= 400) return response.reasonPhrase;
@@ -51,7 +49,7 @@ class CalendarHandler {
       Scaffold
           .of(context)
           .showSnackBar(new SnackBar(content: new Text(result)));
-    } on PlatformException catch (e) {
+    } on PlatformException catch (_) {
       Scaffold
           .of(context)
           .showSnackBar(new SnackBar(content: new Text("error")));

@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/initapp/init.dart';
+import 'package:xmux/mainapp/calendar/calendarhandler.dart';
 import 'package:xmux/redux/actions.dart';
 
 class LoginHandler {
@@ -16,7 +17,7 @@ class LoginHandler {
       String id, String password, BuildContext context) async {
     // Get response from backend.
     var response =
-        await backendApiHandler(context: context, api: "/v2/login", body: {
+        await BackendApiHandler.post(context: context, api: "/v2/login", body: {
       "id": id,
       "pass": password,
     });
@@ -28,8 +29,10 @@ class LoginHandler {
     if (responseMap.containsKey("error")) return responseMap["error"];
 
     // Init store with LoginMap.
-    mainAppStore
-        .dispatch(new InitAction.fromLogin(id,password,responseMap));
+    mainAppStore.dispatch(new InitAction.fromLogin(id, password, responseMap));
+
+    CalendarHandler.acUpdate();
+    CalendarHandler.assignmentUpdate();
 
     return "success";
   }
