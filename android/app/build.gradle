@@ -29,9 +29,9 @@ android {
     defaultConfig {
         applicationId "org.ctbeta.xmux.xmux"
         minSdkVersion 16
-        targetSdkVersion 25
-        versionCode 74
-        versionName "1.1.12_nightly"
+        targetSdkVersion 27
+        versionCode 77
+        versionName "1.2.0_Alpha"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 

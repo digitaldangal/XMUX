@@ -47,7 +47,7 @@ class MePageState extends State<MePage> {
             height: 15.0,
             color: Theme.of(context).canvasColor,
           ),
-          new Text(globalPersonalInfoState.fullName),
+          new Text(firebaseUser.displayName),
           new Divider(
             height: 10.0,
             color: Theme.of(context).canvasColor,
@@ -79,7 +79,7 @@ class MePageState extends State<MePage> {
                                     });
                                     LoginHandler
                                         .ePaymentAuth(
-                                            globalPersonalInfoState.id,
+                                            mainAppStore.state.personalInfoState.uid,
                                             _ePaymentPasswordController.text)
                                         .then((r) {
                                       if (r.containsKey("error")) {

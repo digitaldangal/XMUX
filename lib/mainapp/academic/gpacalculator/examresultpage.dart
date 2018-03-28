@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:xmux/config.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/initapp/init.dart';
 
 class ExamResultPage extends StatefulWidget {
@@ -16,8 +17,8 @@ class _ExamResultPageState extends State<ExamResultPage> {
 
   Future<Null> _getExamResult() async {
     var response = await http.post(BackendApiConfig.address + "/v2/ac", body: {
-      "id": globalPersonalInfoState.id,
-      "pass": globalPersonalInfoState.password,
+      "id": mainAppStore.state.personalInfoState.uid,
+      "pass": mainAppStore.state.personalInfoState.password,
     });
     setState(() {
       _examResult = JSON.decode(response.body)["data"]["examResult"];
