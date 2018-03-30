@@ -18,8 +18,7 @@ class MessagePage extends StatelessWidget {
               new IconButton(
                 icon: new CircleAvatar(
                   radius: 18.0,
-                  backgroundImage:
-                      new NetworkImage(firebaseUser.photoUrl),
+                  backgroundImage: new NetworkImage(firebaseUser.photoUrl),
                 ),
                 onPressed: () => store.dispatch(new OpenDrawerAction(true)),
               ),

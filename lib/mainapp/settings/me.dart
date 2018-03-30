@@ -7,7 +7,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/loginapp/login_app.dart';
 import 'package:xmux/loginapp/login_handler.dart';
-import 'package:xmux/initapp/init.dart';
 import 'package:xmux/translations/translation.dart';
 
 class MePage extends StatefulWidget {
@@ -78,7 +77,8 @@ class MePageState extends State<MePage> {
                                     });
                                     LoginHandler
                                         .ePaymentAuth(
-                                            mainAppStore.state.personalInfoState.uid,
+                                            mainAppStore
+                                                .state.personalInfoState.uid,
                                             _ePaymentPasswordController.text)
                                         .then((r) {
                                       if (r.containsKey("error")) {
