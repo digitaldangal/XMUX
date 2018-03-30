@@ -1,5 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-
 class MainAppState {
   final bool drawerIsOpen;
 
@@ -9,9 +7,6 @@ class MainAppState {
   /// Settings state include ePaymentPassword, etc.
   final SettingState settingState;
 
-  /// Homepage state include sliders and announcements.
-  final HomePageState homePageState;
-
   /// AC state include timetable, exams, examResult and other academic data.
   final ACState acState;
 
@@ -20,19 +15,16 @@ class MainAppState {
       : this.drawerIsOpen = false,
         this.personalInfoState = new PersonalInfoState(),
         this.settingState = new SettingState(),
-        this.homePageState = new HomePageState(),
         this.acState = new ACState();
 
   MainAppState.raw(this.drawerIsOpen, this.personalInfoState, this.settingState,
-      this.homePageState, this.acState);
+      this.acState);
 
-  MainAppState.fromJson(Map<String, Map> json, {FirebaseUser firebaseUser})
+  MainAppState.fromJson(Map<String, Map> json)
       : this.drawerIsOpen = false,
         this.personalInfoState =
             new PersonalInfoState.fromJson(json["personalInfoState"]),
-        this.settingState =
-            new SettingState.raw(json["settingState"]["ePaymentPassword"]),
-        this.homePageState = new HomePageState(),
+        this.settingState = new SettingState.fromJson(json["settingState"]),
         this.acState = new ACState.fromJson(json["acState"]);
 
   Map<String, Map> toMap() => {
@@ -75,21 +67,17 @@ class SettingState {
 
   SettingState.raw(this.ePaymentPassword);
 
+  SettingState.fromJson(Map sJson)
+      : this.ePaymentPassword = sJson["ePaymentPassword"];
+
   Map<String, String> toMap() => {
         "ePaymentPassword": this.ePaymentPassword,
       };
-}
 
-class HomePageState {
-  /// News for homepage slider.
-  final List<Map<String, dynamic>> news;
-
-  /// Announcements for homepage.
-  final Map<String, dynamic> announcements;
-
-  HomePageState()
-      : this.news = const [],
-        this.announcements = const {};
+  SettingState copyWith({
+    String ePaymentPassword,
+  }) =>
+      new SettingState.raw(ePaymentPassword ?? this.ePaymentPassword);
 }
 
 class ACState {

@@ -74,8 +74,8 @@ class DrawerPageState extends State<DrawerPage> {
                 children: <Widget>[
                   new FlatButton(
                     onPressed: () {
-                      if (globalPersonalInfoState.ePaymentPassword != null)
-                        Navigator.popAndPushNamed(context, "/drawer/epayment");
+                      if (mainAppStore.state.settingState.ePaymentPassword != null)
+                        Navigator.popAndPushNamed(context, "/tools/epayment");
                       else
                         _loginEPayment();
                     },

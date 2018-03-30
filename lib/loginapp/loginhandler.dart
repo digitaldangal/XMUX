@@ -52,17 +52,9 @@ class LoginHandler {
       return {"error": error};
     }
 
-    globalPersonalInfoState.ePaymentPassword = password;
-    globalCalendarState.paymentData = resJson;
-
-    _save(
-        JSON.encode({
-          "campusId": mainAppStore.state.personalInfoState.uid,
-          "password": mainAppStore.state.personalInfoState.password,
-          "ePaymentPassword": globalPersonalInfoState.ePaymentPassword,
-        }),
-        "login.dat");
-    return {"success": true};
+    mainAppStore.dispatch(new UpdateSettingAction(ePaymentPassword: password));
+    resJson.addAll({"success": true});
+    return resJson;
   }
 
   static Future<Map<String, dynamic>> firebaseLogin() async {
@@ -78,10 +70,5 @@ class LoginHandler {
     }
 
     return {"success": true};
-  }
-
-  static Future<Null> _save(String fileText, String fileName) async {
-    String appDocDir = (await getApplicationDocumentsDirectory()).path;
-    await (new File('$appDocDir/$fileName')).writeAsString(fileText);
   }
 }

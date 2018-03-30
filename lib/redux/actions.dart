@@ -1,15 +1,13 @@
 abstract class MainAppAction {
-  get name => "MainAppAction:";
+  toString() => "MainAppAction";
 }
 
 class OpenDrawerAction extends MainAppAction {
-  get name => super.name + "OpenDrawer";
   final bool drawerStatus;
   OpenDrawerAction(this.drawerStatus);
 }
 
 class InitAction extends MainAppAction {
-  get name => super.name + "Init";
   final Map<String, dynamic> initMap;
   InitAction(this.initMap);
   InitAction.fromLogin(
@@ -35,7 +33,8 @@ class InitAction extends MainAppAction {
 }
 
 class UpdateSettingAction extends MainAppAction {
-  get name => super.name + "UpdateSetting";
+  String ePaymentPassword;
+  UpdateSettingAction({this.ePaymentPassword});
 }
 
 class UpdateACAction extends MainAppAction {

@@ -11,9 +11,6 @@ import 'package:xmux/loginapp/loginhandler.dart';
 import 'package:xmux/mainapp/calendar/calendarhandler.dart';
 import 'package:xmux/redux/actions.dart';
 
-final GPersonalInfoState globalPersonalInfoState = new GPersonalInfoState();
-final CalendarState globalCalendarState = new CalendarState();
-
 Future<String> init() async {
   String appDocDir;
   Map<String, Map> initMap;
@@ -47,31 +44,5 @@ Future<String> init() async {
     return "LoginError";
   }
 
-  globalPersonalInfoState.ePaymentPassword =
-      mainAppStore.state.settingState.ePaymentPassword;
-  globalCalendarState.paymentData = resJson["bill"];
-
   return "Finished";
-}
-
-class GPersonalInfoState {
-  String ePaymentPassword;
-
-  GPersonalInfoState({
-    this.ePaymentPassword,
-  });
-
-  void clear() {
-    this.ePaymentPassword = null;
-  }
-}
-
-class CalendarState {
-  Map paymentData;
-
-  CalendarState({this.paymentData});
-
-  void clear() {
-    this.paymentData = null;
-  }
 }

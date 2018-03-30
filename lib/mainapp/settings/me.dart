@@ -25,8 +25,7 @@ class MePageState extends State<MePage> {
     FirebaseAuth.instance.signOut();
     String _stateDir = (await getApplicationDocumentsDirectory()).path;
     await (new File('$_stateDir/state.dat')).delete();
-    globalPersonalInfoState.clear();
-    globalCalendarState.clear();
+    mainAppStore.dispatch("delete");
     runApp(new LoginApp());
   }
 
@@ -52,7 +51,7 @@ class MePageState extends State<MePage> {
             height: 10.0,
             color: Theme.of(context).canvasColor,
           ),
-          globalPersonalInfoState.ePaymentPassword == null
+          mainAppStore.state.settingState.ePaymentPassword == null
               ? new Container(
                   margin: const EdgeInsets.only(left: 30.0, right: 20.0),
                   child: new Row(

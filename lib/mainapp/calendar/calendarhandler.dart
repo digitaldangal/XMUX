@@ -36,8 +36,9 @@ class CalendarHandler {
     if (response.statusCode >= 400) return response.reasonPhrase;
 
     // Update acState
-    mainAppStore
-        .dispatch(new UpdateACAction(assignments: JSON.decode(response.body)));
+    if ((JSON.decode(response.body) as List).isNotEmpty)
+      mainAppStore.dispatch(
+          new UpdateACAction(assignments: JSON.decode(response.body)));
 
     return "success";
   }
