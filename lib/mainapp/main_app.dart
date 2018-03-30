@@ -5,7 +5,7 @@ import 'package:redux/redux.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/initapp/init.dart';
-import 'package:xmux/mainapp/mainpage.dart';
+import 'package:xmux/mainapp/main_page.dart';
 import 'package:xmux/mainapp/academic/gpacalculator/examresultpage.dart';
 import 'package:xmux/mainapp/academic/gpacalculator/gpacalculator.dart';
 import 'package:xmux/mainapp/academic/wolframengine/inputconstructor.dart';

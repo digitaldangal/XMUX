@@ -5,8 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/loginapp/loginapp.dart';
-import 'package:xmux/loginapp/loginhandler.dart';
+import 'package:xmux/loginapp/login_app.dart';
+import 'package:xmux/loginapp/login_handler.dart';
 import 'package:xmux/initapp/init.dart';
 import 'package:xmux/translations/translation.dart';
 
