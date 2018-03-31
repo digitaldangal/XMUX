@@ -70,8 +70,9 @@ class _GlobalChatroomPageState extends State<GlobalChatroomPage> {
   bool _isComposing = false;
 
   @override
-  Future initState() async {
+  void initState() {
     reference = FirebaseDatabase.instance.reference().child('messages_beta');
+    super.initState();
   }
 
   @override
